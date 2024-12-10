@@ -8,4 +8,12 @@ modalCloseBtn.addEventListener('click', function () {
 
 addNewRow.addEventListener('click', function () {
     modal.classList.remove('hidden');
-})
+});
+
+let alertMsg = document.querySelector('.alert-msg');
+
+if (alertMsg != null) {
+    setTimeout(() => {
+        (alertMsg as HTMLElement).remove();
+    }, 4000);
+}

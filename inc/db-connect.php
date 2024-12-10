@@ -5,10 +5,10 @@ $username = "root";
 $password = "root123";
 $db = "cars_management";
 
-$conn = new mysqli($server, $username, $password, $db);
+$conn = mysqli_connect($server, $username, $password, $db);
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
 }
 
 // To insert

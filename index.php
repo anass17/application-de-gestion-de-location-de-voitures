@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     require "inc/db-connect.php";
 
     $page = 'clients';
@@ -108,7 +110,7 @@
 
         <!-- Page Content -->
         
-        <div class="container mx-auto px-3 py-10 max-w-[1200px]">
+        <div class="container mx-auto px-6 py-10  h-screen overflow-auto">
                 <?php 
                     if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
@@ -351,7 +353,7 @@
                                 <div>
                                     <button type="button" class="add-new-row flex items-center gap-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="fill-orange-500" viewBox="0 0 448 512" width="25"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM200 344l0-64-64 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l64 0 0-64c0-13.3 10.7-24 24-24s24 10.7 24 24l0 64 64 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-64 0 0 64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/></svg>
-                                        <p class="font-bold">Add new Contract</p>
+                                        <p class="font-bold">Add a new Client</p>
                                     </button>
                                 </div>
                                 <div>
@@ -458,7 +460,7 @@
                         <button type="button" class="modal-close-btn text-red-500 font-bold text-2xl">X</button>
                     </div>
                     <div class="modal-body px-7 py-5">
-                        <form action="" method="POST">
+                        <form action="assets/pages/data.php" method="POST">
                             <div class="flex gap-5 mb-4">
                                 <div class="">
                                     <label for="full-name" class="block mb-1">Full Name</label>
@@ -483,7 +485,7 @@
                                     <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="email" name="email" placeholder="anass@example.com">
                                 </div>
                             </div>
-                            <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3">ADD</button>
+                            <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3" name="form-type" value="client">ADD</button>
                         </form>
                     </div>
                 </div>
@@ -581,6 +583,21 @@
                 </div>
             </div>';
         }
+    
+    ?>
+
+    <?php
+    
+    if (isset($_SESSION["msg"])) {
+        echo 
+        '<div class="fixed alert-msg text-gray-800 text-center top-5 left-1/2 -translate-x-1/2 w-full max-w-lg p-7 shadow-lg ' . ($_SESSION["status"] == "error" ? "bg-red-300 border-red-500" : "bg-green-300 border-green-500") . ' border z-50 rounded-xl">
+            <h2 class="mb-3 font-bold text-lg">' . ($_SESSION["status"] == "error" ? "Something went wrong!" : "Successfully updated!") . '</h2>
+            <p>' . $_SESSION["msg"] . '</p>
+        </div>';
+
+        unset($_SESSION["msg"]);
+        unset($_SESSION["status"]);
+    }
     
     ?>
 
