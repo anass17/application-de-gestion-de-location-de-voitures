@@ -16,7 +16,6 @@
     if (isset($_GET["view"]) && $_GET["view"] == "tables") {
         $view = "tables";
     }
-
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +52,7 @@
             <!-- Information -->
 
             <div class="mx-7 my-3 relative after:w-full after:h-[1px] after:bg-gray-500 after:absolute after:block after:left-0 after:top-[14px]">
-                <h3 class="text-gray-400 bg-gray-800 relative z-50 inline-block pr-[10px]">Information</h3>
+                <h3 class="text-gray-400 bg-gray-800 relative z-10 inline-block pr-[10px]">Information</h3>
                 <ul class="pt-4">
                     <li class="mb-5">
                         <a href="/index.php?page=clients&view=<?php echo $view ?>" class="flex">
@@ -85,7 +84,7 @@
             <!-- View -->
 
             <div class="mx-7 my-3 relative after:w-full after:h-[1px] after:bg-gray-500 after:absolute after:block after:left-0 after:top-[14px]">
-                <h3 class="text-gray-400 bg-gray-800 relative z-50 inline-block pr-[10px]">View</h3>
+                <h3 class="text-gray-400 bg-gray-800 relative z-10 inline-block pr-[10px]">View</h3>
                 <ul class="pt-4">
                     <li class="mb-5">
                         <a href="/index.php?page=<?php echo $page; ?>&view=cards" class="flex">
@@ -121,6 +120,25 @@
 
                             echo '<h2 class="text-center mb-10 font-bold text-2xl">List of cars</h2>';
 
+                            echo 
+                                '<div class="flex gap-24 justify-center mb-10 items-center">
+                                    <div>
+                                        <button type="button" class="add-new-row flex items-center gap-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-orange-500" viewBox="0 0 448 512" width="25"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM200 344l0-64-64 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l64 0 0-64c0-13.3 10.7-24 24-24s24 10.7 24 24l0 64 64 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-64 0 0 64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/></svg>
+                                            <p class="font-bold">Add a new Car</p>
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <form action="/index.php" method="GET" class="flex gap-4">
+                                            <div class="border border-gray-300 relative rounded-lg">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-3 fill-gray-600" width="20" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+                                                <input type="text" class="px-3 py-2 pl-12 outline-none rounded-lg" name="search" placeholder="Type in Something ...">
+                                            </div>
+                                            <button type="submit" class="w-20 bg-orange-500 text-white rounded-lg">Search</button>
+                                        </form>
+                                    </div>
+                                </div>';
+
                             if ($result->num_rows > 0) {
                                 if ($view == "cards") {
                                     echo '<div class="grid grid-cols-3 gap-5">';
@@ -133,7 +151,7 @@
                                                 <p class=''><b>" . $row['price'] . "</b> MAD/D</p>
                                             </div>
                                             <div class='relative after:w-full after:h-[1px] after:bg-gray-300 after:absolute after:block after:left-0 after:top-[14px]'>
-                                                <h4 class='relative z-50 bg-white pr-3 inline-block text-gray-600'>Car's details</h4>
+                                                <h4 class='relative z-10 bg-white pr-3 inline-block text-gray-600'>Car's details</h4>
                                                 <div class='mt-3'>
                                                     <p><b>Immatriculation:</b> " . $row['NumImmatriculation'] . "</p>
                                                 </div>
@@ -144,10 +162,10 @@
                                             </div>
                                             <div class='absolute top-3 right-4 opacity-0 transition-all group-hover:opacity-100'>
                                                 <button type='button'>
-                                                    <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-red-500' viewBox=\"0 0 448 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d=\"M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z\"/></svg>
+                                                    <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-red-500' viewBox=\"0 0 448 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z'/></svg>
                                                 </button>
                                                 <button type='button' class='ml-2'>
-                                                    <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-blue-500' viewBox=\"0 0 512 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d=\"M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z\"/></svg>
+                                                    <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-blue-500' viewBox=\"0 0 512 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z'/></svg>
                                                 </button>
                                             </div>
                                         </div>";
@@ -176,10 +194,10 @@
                                                     <span>' . $row['annee'] . '</span>
                                                     <div class="absolute flex justify-center gap-4 top-0 left-4 opacity-0 group-hover:opacity-100 transition-opacity delay-50 duration-300">
                                                         <button type="button" class="flex gap-3">
-                                                            <svg xmlns=\"http://www.w3.org/2000/svg\" width="15" class="fill-red-500 pt-1" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z\"/></svg>
+                                                            <svg xmlns=\"http://www.w3.org/2000/svg\" width="15" class="fill-red-500 pt-1" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"/></svg>
                                                         </button>
                                                         <button type="button" class="flex gap-3">
-                                                            <svg xmlns=\"http://www.w3.org/2000/svg\" width="15" class="fill-blue-500 pt-1" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z\"/></svg>
+                                                            <svg xmlns=\"http://www.w3.org/2000/svg\" width="15" class="fill-blue-500 pt-1" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"/></svg>
                                                         </button>
                                                     </div>
                                                 </div>';
@@ -204,6 +222,25 @@
 
                                 echo '<h2 class="text-center mb-10 font-bold text-2xl">List of contracts</h2>';
 
+                                echo 
+                                '<div class="flex gap-24 justify-center mb-10 items-center">
+                                    <div>
+                                        <button type="button" class="add-new-row flex items-center gap-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-orange-500" viewBox="0 0 448 512" width="25"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM200 344l0-64-64 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l64 0 0-64c0-13.3 10.7-24 24-24s24 10.7 24 24l0 64 64 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-64 0 0 64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/></svg>
+                                            <p class="font-bold">Add new Contract</p>
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <form action="/index.php" method="GET" class="flex gap-4">
+                                            <div class="border border-gray-300 relative rounded-lg">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-3 fill-gray-600" width="20" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+                                                <input type="text" class="px-3 py-2 pl-12 outline-none rounded-lg" name="search" placeholder="Type in Something ...">
+                                            </div>
+                                            <button type="submit" class="w-20 bg-orange-500 text-white rounded-lg">Search</button>
+                                        </form>
+                                    </div>
+                                </div>';
+
                                 if ($result->num_rows > 0) {
                                     if ($view == "cards") {
                                         echo '<div class="grid grid-cols-3 gap-5">';
@@ -213,15 +250,15 @@
                                                 <h3 class='text-center mb-5 font-bold text-[18px] text-orange-500'>Contract: " . $row['NumContrat'] . "</h3>
                                                 <div class='flex justify-center flex-wrap gap-5 items-center mb-6'>
                                                     <div class='flex border border-gray-300 rounded-lg px-3 py-1'>
-                                                        <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-gray-700' viewBox=\"0 0 448 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d=\"M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L64 64C28.7 64 0 92.7 0 128l0 16 0 48L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-256 0-48 0-16c0-35.3-28.7-64-64-64l-40 0 0-40c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L152 64l0-40zM48 192l352 0 0 256c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16l0-256zm176 40c-13.3 0-24 10.7-24 24l0 48-48 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l48 0 0 48c0 13.3 10.7 24 24 24s24-10.7 24-24l0-48 48 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-48 0 0-48c0-13.3-10.7-24-24-24z\"/></svg>
+                                                        <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-gray-700' viewBox=\"0 0 448 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L64 64C28.7 64 0 92.7 0 128l0 16 0 48L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-256 0-48 0-16c0-35.3-28.7-64-64-64l-40 0 0-40c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L152 64l0-40zM48 192l352 0 0 256c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16l0-256zm176 40c-13.3 0-24 10.7-24 24l0 48-48 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l48 0 0 48c0 13.3 10.7 24 24 24s24-10.7 24-24l0-48 48 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-48 0 0-48c0-13.3-10.7-24-24-24z'/></svg>
                                                         <span class='ml-2 text-gray-800'>" . $row['StartDate'] . "</span>
                                                     </div>
                                                     <div class='flex border border-gray-300 rounded-lg px-3 py-1'>
-                                                        <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-gray-700' viewBox=\"0 0 448 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d=\"M128 0c13.3 0 24 10.7 24 24l0 40 144 0 0-40c0-13.3 10.7-24 24-24s24 10.7 24 24l0 40 40 0c35.3 0 64 28.7 64 64l0 16 0 48 0 256c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 192l0-48 0-16C0 92.7 28.7 64 64 64l40 0 0-40c0-13.3 10.7-24 24-24zM400 192L48 192l0 256c0 8.8 7.2 16 16 16l320 0c8.8 0 16-7.2 16-16l0-256zM329 297L217 409c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47 95-95c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z\"/></svg>
+                                                        <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-gray-700' viewBox=\"0 0 448 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M128 0c13.3 0 24 10.7 24 24l0 40 144 0 0-40c0-13.3 10.7-24 24-24s24 10.7 24 24l0 40 40 0c35.3 0 64 28.7 64 64l0 16 0 48 0 256c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 192l0-48 0-16C0 92.7 28.7 64 64 64l40 0 0-40c0-13.3 10.7-24 24-24zM400 192L48 192l0 256c0 8.8 7.2 16 16 16l320 0c8.8 0 16-7.2 16-16l0-256zM329 297L217 409c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47 95-95c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z'/></svg>
                                                         <span class='ml-2 text-gray-800'>" . $row['EndDate'] . "</span>
                                                     </div>
                                                     <div class='flex border border-gray-300 rounded-lg px-3 py-1'>
-                                                        <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-gray-700' viewBox=\"0 0 512 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d=\"M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z\"/></svg>
+                                                        <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-gray-700' viewBox=\"0 0 512 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z'/></svg>
                                                         <span class='ml-2 text-gray-800'>" . $row['duration'] . " Days</span>
                                                     </div>
                                                 </div>
@@ -252,17 +289,54 @@
                                                 </div>
                                                 <div class='absolute top-3 right-4 opacity-0 transition-all group-hover:opacity-100'>
                                                     <button type='button'>
-                                                        <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-red-500' viewBox=\"0 0 448 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d=\"M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z\"/></svg>
+                                                        <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-red-500' viewBox=\"0 0 448 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z'/></svg>
                                                     </button>
                                                     <button type='button' class='ml-2'>
-                                                        <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-blue-500' viewBox=\"0 0 512 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d=\"M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z\"/></svg>
+                                                        <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-blue-500' viewBox=\"0 0 512 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z'/></svg>
                                                     </button>
                                                 </div>
                                             </div>";
                                         }
                                         echo '</div>';
                                     } else {
-                                        
+                                        echo 
+                                        '<div class="border border-gray-200 w-full text-center">
+                                            <div class="bg-orange-500 text-white">
+                                                <div class="*:py-3 grid grid-cols-8">
+                                                    <b>ID</b>
+                                                    <b>StartDate</b>
+                                                    <b>EndDate</b>
+                                                    <b>Duration</b>
+                                                    <b>Annee</b>
+                                                    <b>Name</b>
+                                                    <b>Immatriculation</b>
+                                                    <b>Model</b>
+                                                </div>
+                                            </div>
+                                            <div class="even:*:bg-gray-100">';
+                                                while($row = $result->fetch_assoc()) {
+                                                    echo 
+                                                    '<div class="*:py-3 relative grid grid-cols-8 group hover:pl-10 transition-all">
+                                                        <span>' . $row["NumContrat"] . '</span>
+                                                        <span>' . $row['StartDate'] . '</span>
+                                                        <span>' . $row['EndDate'] . '</span>
+                                                        <span>' . $row['duration'] . ' Days</span>
+                                                        <span>' . $row['annee'] . '</span>
+                                                        <span>' . $row['Nom'] . '</span>
+                                                        <span>' . $row['NumImmatriculation'] . '</span>
+                                                        <span>' . $row['modele'] . '</span>
+                                                        <div class="absolute flex justify-center gap-4 top-0 left-4 opacity-0 group-hover:opacity-100 transition-opacity delay-50 duration-300">
+                                                            <button type="button" class="flex gap-3">
+                                                                <svg xmlns=\"http://www.w3.org/2000/svg\" width="15" class="fill-red-500 pt-1" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"/></svg>
+                                                            </button>
+                                                            <button type="button" class="flex gap-3">
+                                                                <svg xmlns=\"http://www.w3.org/2000/svg\" width="15" class="fill-blue-500 pt-1" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"/></svg>
+                                                            </button>
+                                                        </div>
+                                                    </div>';
+                                                }
+                                            echo '</div>';
+                                        echo '</div>';
                                     }
                                 }
                             }
@@ -271,6 +345,25 @@
                             $result = $conn->query($sql);
 
                             echo '<h2 class="text-center mb-10 font-bold text-2xl">List of clients</h2>';
+
+                            echo 
+                            '<div class="flex gap-24 justify-center mb-10 items-center">
+                                <div>
+                                    <button type="button" class="add-new-row flex items-center gap-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="fill-orange-500" viewBox="0 0 448 512" width="25"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM200 344l0-64-64 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l64 0 0-64c0-13.3 10.7-24 24-24s24 10.7 24 24l0 64 64 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-64 0 0 64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/></svg>
+                                        <p class="font-bold">Add new Contract</p>
+                                    </button>
+                                </div>
+                                <div>
+                                    <form action="/index.php" method="GET" class="flex gap-4">
+                                        <div class="border border-gray-300 relative rounded-lg">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-3 fill-gray-600" width="20" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+                                            <input type="text" class="px-3 py-2 pl-12 outline-none rounded-lg" name="search" placeholder="Type in Something ...">
+                                        </div>
+                                        <button type="submit" class="w-20 bg-orange-500 text-white rounded-lg">Search</button>
+                                    </form>
+                                </div>
+                            </div>';
 
                             if ($result->num_rows > 0) {
                                 if ($view == "cards") {
@@ -281,7 +374,7 @@
                                             <span class='hidden'>" . $row['NumClient'] . "</span>
                                             <h3 class='text-center mb-5 font-bold text-[18px] text-orange-500'>" . $row['Nom'] . "</h3>
                                             <div class='flex justify-center gap-4 items-center mb-4'>
-                                                <svg xmlns=\"http://www.w3.org/2000/svg\" class='fill-gray-500' viewBox=\"0 0 384 512\" width='16'><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d=\"M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z\"/></svg>
+                                                <svg xmlns=\"http://www.w3.org/2000/svg\" class='fill-gray-500' viewBox=\"0 0 384 512\" width='16'><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z'/></svg>
                                                 <p class='text-centerinline-block'>" . $row['Adresse'] . "</p>
                                             </div>
                                             <div class='flex justify-between mb-3 mt-2 items-center'>
@@ -289,22 +382,22 @@
                                                 <span><b>Contracts:</b> 5</span>
                                             </div>
                                             <div class='relative after:w-full after:h-[1px] after:bg-gray-300 after:absolute after:block after:left-0 after:top-[14px]'>
-                                                <h4 class='relative z-50 bg-white pr-3 inline-block text-gray-600'>Contact</h4>
+                                                <h4 class='relative z-10 bg-white pr-3 inline-block text-gray-600'>Contact</h4>
                                                 <div class='flex gap-4 items-center mt-3'>
-                                                    <svg xmlns=\"http://www.w3.org/2000/svg\" width='16' class='fill-gray-500' viewBox=\"0 0 512 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d=\"M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z\"/></svg>
+                                                    <svg xmlns=\"http://www.w3.org/2000/svg\" width='16' class='fill-gray-500' viewBox=\"0 0 512 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z'/></svg>
                                                     <p>" . $row['Tel'] . "</p>
                                                 </div>
                                                 <div class='flex gap-4 items-center mt-3'>
-                                                    <svg xmlns=\"http://www.w3.org/2000/svg\" width='16' class='fill-gray-500' viewBox=\"0 0 512 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d=\"M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z\"/></svg>
+                                                    <svg xmlns=\"http://www.w3.org/2000/svg\" width='16' class='fill-gray-500' viewBox=\"0 0 512 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z'/></svg>
                                                     <p class='text-blue-500 font-bold'>" . $row['Email'] . "</p>
                                                 </div>
                                             </div>
                                             <div class='absolute top-3 right-4 opacity-0 transition-all group-hover:opacity-100'>
                                                 <button type='button'>
-                                                    <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-red-500' viewBox=\"0 0 448 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d=\"M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z\"/></svg>
+                                                    <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-red-500' viewBox=\"0 0 448 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z'/></svg>
                                                 </button>
                                                 <button type='button' class='ml-2'>
-                                                    <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-blue-500' viewBox=\"0 0 512 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d=\"M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z\"/></svg>
+                                                    <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-blue-500' viewBox=\"0 0 512 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z'/></svg>
                                                 </button>
                                             </div>
                                         </div>";
@@ -331,10 +424,10 @@
                                                     <span>' . $row['Email'] . '</span>
                                                     <div class="absolute flex justify-center gap-4 top-0 left-4 opacity-0 group-hover:opacity-100 transition-opacity delay-50 duration-300">
                                                         <button type="button" class="flex gap-3">
-                                                            <svg xmlns=\"http://www.w3.org/2000/svg\" width="15" class="fill-red-500 pt-1" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z\"/></svg>
+                                                            <svg xmlns=\"http://www.w3.org/2000/svg\" width="15" class="fill-red-500 pt-1" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"/></svg>
                                                         </button>
                                                         <button type="button" class="flex gap-3">
-                                                            <svg xmlns=\"http://www.w3.org/2000/svg\" width="15" class="fill-blue-500 pt-1" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z\"/></svg>
+                                                            <svg xmlns=\"http://www.w3.org/2000/svg\" width="15" class="fill-blue-500 pt-1" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"/></svg>
                                                         </button>
                                                     </div>
                                                 </div>';
@@ -353,6 +446,143 @@
                 ?>
         </div>
     </div>
+
+    <?php
+    
+        if ($page == "clients") {
+            echo
+            '<div class="modal hidden z-50 fixed top-0 left-0 bg-black bg-opacity-70 w-full h-full flex justify-center items-center">
+                <div class="modal-content w-full max-w-lg bg-white rounded-xl">
+                    <div class="modal-header flex justify-between items-center px-7 py-5 pb-4 border-b border-gray-300">
+                        <h2 class="font-bold text-lg">Add a New Client</h2>
+                        <button type="button" class="modal-close-btn text-red-500 font-bold text-2xl">X</button>
+                    </div>
+                    <div class="modal-body px-7 py-5">
+                        <form action="" method="POST">
+                            <div class="flex gap-5 mb-4">
+                                <div class="">
+                                    <label for="full-name" class="block mb-1">Full Name</label>
+                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="full-name" name="full-name" placeholder="Anass Boutaib">
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+                            <div class="flex gap-5 mb-4">
+                                <div class="w-full">
+                                    <label for="address" class="block mb-1">Address</label>
+                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md w-full" id="address" name="address" placeholder="Tinghir, Maroc">
+                                </div>
+                            </div>
+                            <div class="flex gap-5 mb-4">
+                                <div class="">
+                                    <label for="tel" class="block mb-1">Tel</label>
+                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="tel" name="tel" placeholder="0635241562">
+                                </div>
+                                <div class="">
+                                    <label for="email" class="block mb-1">Email</label>
+                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="email" name="email" placeholder="anass@example.com">
+                                </div>
+                            </div>
+                            <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3">ADD</button>
+                        </form>
+                    </div>
+                </div>
+            </div>';
+        } else if ($page == "voitures") {
+            echo
+            '<div class="modal hidden z-50 fixed top-0 left-0 bg-black bg-opacity-70 w-full h-full flex justify-center items-center">
+                <div class="modal-content w-full max-w-lg bg-white rounded-xl">
+                    <div class="modal-header flex justify-between items-center px-7 py-5 pb-4 border-b border-gray-300">
+                        <h2 class="font-bold text-lg">Add a New Car</h2>
+                        <button type="button" class="modal-close-btn text-red-500 font-bold text-2xl">X</button>
+                    </div>
+                    <div class="modal-body px-7 py-5">
+                        <form action="" method="POST">
+                            <div class="flex gap-5 mb-4">
+                                <div class="">
+                                    <label for="modele" class="block mb-1">Modele</label>
+                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="modele" name="modele" placeholder="Clio">
+                                </div>
+                                <div class="">
+                                    <label for="marque" class="block mb-1">Marque</label>
+                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="marque" name="marque" placeholder="Dacia">
+                                </div>
+                            </div>
+                            <div class="flex gap-5 mb-4">
+                                <div class="w-full">
+                                    <label for="matriculation" class="block mb-1">Matriculation</label>
+                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md w-full" id="matriculation" name="matriculation" placeholder="45F123XYZ">
+                                </div>
+                            </div>
+                            <div class="flex gap-5 mb-4">
+                                <div class="">
+                                    <label for="annee" class="block mb-1">Annee</label>
+                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="annee" name="annee" placeholder="2021">
+                                </div>
+                                <div class="">
+                                    <label for="price" class="block mb-1">Price (MAD / Day)</label>
+                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="price" name="price" placeholder="275">
+                                </div>
+                            </div>
+                            <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3">ADD</button>
+                        </form>
+                    </div>
+                </div>
+            </div>';
+        } else {
+            echo
+            '<div class="modal hidden z-50 fixed top-0 left-0 bg-black bg-opacity-70 w-full h-full flex justify-center items-center">
+                <div class="modal-content w-full max-w-lg bg-white rounded-xl">
+                    <div class="modal-header flex justify-between items-center px-7 py-5 pb-4 border-b border-gray-300">
+                        <h2 class="font-bold text-lg">Add a New Contract</h2>
+                        <button type="button" class="modal-close-btn text-red-500 font-bold text-2xl">X</button>
+                    </div>
+                    <div class="modal-body px-7 py-5">
+                        <form action="" method="POST">
+                            <div class="flex gap-5 mb-4">
+                                <div class="">
+                                    <label for="start-date" class="block mb-1">Start Date</label>
+                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="start-date" name="start-date" placeholder="2024-15-30">
+                                </div>
+                                <div class="">
+                                    <label for="end-date" class="block mb-1">End Date</label>
+                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="end-date" name="end-date" placeholder="Dacia">
+                                </div>
+                            </div>
+                            <div class="flex gap-5 mb-4">
+                                <div class="w-full">
+                                    <label for="duration" class="block mb-1">Duration (Days)</label>
+                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md w-full" id="duration" name="duration" placeholder="3">
+                                </div>
+                                <div class="w-full">
+                                    <label for="annee" class="block mb-1">Client</label>
+                                    <select class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md w-full" name="annee" id="annee">
+                                        <option value="">Select</option>
+                                        <option value="Anass Boutaib">Anass Boutaib</option>
+                                        <option value="Omar Farhaoui">Omar Farhaoui</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="flex gap-5 mb-4">
+                                <div class="w-full">
+                                    <label for="matriculation" class="block mb-1">Matriculation</label>
+                                    <select class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md w-full" name="matriculation" id="matriculation">
+                                        <option value="">Select</option>
+                                        <option value="1234ABC">1234ABC</option>
+                                        <option value="1234ABC">1234ABC</option>
+                                    </select>
+                                </div>
+                                <div class="w-full">
+                                </div>
+                            </div>
+                            <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3">ADD</button>
+                        </form>
+                    </div>
+                </div>
+            </div>';
+        }
+    
+    ?>
 
 
     <script src="assets/js/script.js"></script>
