@@ -532,6 +532,12 @@
                 </div>
             </div>';
         } else {
+            $sql = "SELECT nom FROM clients";
+            $clients = $conn->query($sql);
+
+            $sql = "SELECT numImmatriculation AS Immat, marque, modele FROM voitures";
+            $voitures = $conn->query($sql);
+
             echo
             '<div class="modal hidden z-50 fixed top-0 left-0 bg-black bg-opacity-70 w-full h-full flex justify-center items-center">
                 <div class="modal-content w-full max-w-lg bg-white rounded-xl">
@@ -540,15 +546,15 @@
                         <button type="button" class="modal-close-btn text-red-500 font-bold text-2xl">X</button>
                     </div>
                     <div class="modal-body px-7 py-5">
-                        <form action="" method="POST">
+                        <form action="assets/pages/data.php" method="POST">
                             <div class="flex gap-5 mb-4">
                                 <div class="">
                                     <label for="start-date" class="block mb-1">Start Date</label>
-                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="start-date" name="start-date" placeholder="2024-15-30">
+                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="start-date" name="start-date" placeholder="2024-11-28">
                                 </div>
                                 <div class="">
                                     <label for="end-date" class="block mb-1">End Date</label>
-                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="end-date" name="end-date" placeholder="Dacia">
+                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="end-date" name="end-date" placeholder="2024-12-05">
                                 </div>
                             </div>
                             <div class="flex gap-5 mb-4">
@@ -557,27 +563,33 @@
                                     <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md w-full" id="duration" name="duration" placeholder="3">
                                 </div>
                                 <div class="w-full">
-                                    <label for="annee" class="block mb-1">Client</label>
-                                    <select class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md w-full" name="annee" id="annee">
-                                        <option value="">Select</option>
-                                        <option value="Anass Boutaib">Anass Boutaib</option>
-                                        <option value="Omar Farhaoui">Omar Farhaoui</option>
-                                    </select>
+                                    <label for="client" class="block mb-1">Client</label>
+                                    <select class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md w-full" name="client" id="client">
+                                        <option value="">Select</option>';
+
+                                        while($row = $clients -> fetch_row()) {
+                                            echo '<option value="' . $row[0] . '">' . $row[0] . '</option>';
+                                        }
+
+                                    echo '</select>
                                 </div>
                             </div>
                             <div class="flex gap-5 mb-4">
                                 <div class="w-full">
-                                    <label for="matriculation" class="block mb-1">Matriculation</label>
+                                    <label for="matriculation" class="block mb-1">Type de voiture</label>
                                     <select class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md w-full" name="matriculation" id="matriculation">
-                                        <option value="">Select</option>
-                                        <option value="1234ABC">1234ABC</option>
-                                        <option value="1234ABC">1234ABC</option>
-                                    </select>
+                                        <option value="">Select</option>';
+                                        
+                                        while($row = $voitures -> fetch_assoc()) {
+                                            echo '<option value="' . $row['Immat'] . '">' . $row['modele'] . ' - ' . $row['marque'] . ' - ' .  $row['Immat'] . '</option>';
+                                        }
+
+                                    echo '</select>
                                 </div>
                                 <div class="w-full">
                                 </div>
                             </div>
-                            <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3">ADD</button>
+                            <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3" name="form-type" value="contrats">ADD</button>
                         </form>
                     </div>
                 </div>
