@@ -485,7 +485,7 @@
                                     <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="email" name="email" placeholder="anass@example.com">
                                 </div>
                             </div>
-                            <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3" name="form-type" value="client">ADD</button>
+                            <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3" name="form-type" value="clients">ADD</button>
                         </form>
                     </div>
                 </div>
@@ -499,7 +499,7 @@
                         <button type="button" class="modal-close-btn text-red-500 font-bold text-2xl">X</button>
                     </div>
                     <div class="modal-body px-7 py-5">
-                        <form action="" method="POST">
+                        <form action="assets/pages/data.php" method="POST">
                             <div class="flex gap-5 mb-4">
                                 <div class="">
                                     <label for="modele" class="block mb-1">Modele</label>
@@ -526,7 +526,7 @@
                                     <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="price" name="price" placeholder="275">
                                 </div>
                             </div>
-                            <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3">ADD</button>
+                            <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3" name="form-type" value="voitures">ADD</button>
                         </form>
                     </div>
                 </div>
