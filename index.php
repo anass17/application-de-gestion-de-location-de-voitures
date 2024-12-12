@@ -33,18 +33,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 <body class="font-['Roboto']">
+
+    <style>
+        .menu-closed {
+            width: 75px;
+        }
+
+        .menu-closed h2 {
+            visibility: hidden;
+        }
+
+        .menu-closed h3, .menu-closed a span {
+            visibility: hidden
+        }
+    </style>
     
     <div class="flex">
 
         <!-- Menu -->
 
-        <div class="w-[300px] bg-gray-800 h-screen text-white">
+        <div class="w-[300px] menu overflow-hidden bg-gray-800 h-screen text-white transition-all">
 
             <!-- Menu Header -->
 
-            <div class="px-7 py-5 flex justify-between items-center">
+            <div class="px-7 py-5 flex justify-between items-center relative">
                 <h2 class="text-lg font-bold">Menu</h2>
-                <button type="button" class="w-[20px] h-[15px] flex flex-col justify-between">
+                <button type="button" class="menu-btn w-[20px] h-[15px] flex flex-col justify-between absolute top-6.5 right-7">
                     <span class="rounded h-[3px] w-full bg-orange-500 block"></span>
                     <span class="rounded h-[3px] w-full bg-orange-500 block"></span>
                     <span class="rounded h-[3px] w-full bg-orange-500 block"></span>
@@ -53,7 +67,7 @@
 
             <!-- Information -->
 
-            <div class="mx-7 my-3 relative after:w-full after:h-[1px] after:bg-gray-500 after:absolute after:block after:left-0 after:top-[14px]">
+            <div class="mx-6 my-3 relative after:w-full after:h-[1px] after:bg-gray-500 after:absolute after:block after:left-0 after:top-[14px]">
                 <h3 class="text-gray-400 bg-gray-800 relative z-10 inline-block pr-[10px]">Information</h3>
                 <ul class="pt-4">
                     <li class="mb-5">
@@ -85,7 +99,7 @@
 
             <!-- View -->
 
-            <div class="mx-7 my-3 relative after:w-full after:h-[1px] after:bg-gray-500 after:absolute after:block after:left-0 after:top-[14px]">
+            <div class="mx-6 my-3 relative after:w-full after:h-[1px] after:bg-gray-500 after:absolute after:block after:left-0 after:top-[14px]">
                 <h3 class="text-gray-400 bg-gray-800 relative z-10 inline-block pr-[10px]">View</h3>
                 <ul class="pt-4">
                     <li class="mb-5">
@@ -147,18 +161,18 @@
                                     while($row = $result->fetch_assoc()) {
                                         echo 
                                         "<div class='group relative rounded-lg shadow-[0px_0px_15px_rgba(0,0,0,.25)] bg-white py-6 px-7'>
-                                            <h3 class='text-center mb-5 font-bold text-[18px] text-orange-500'>" . $row['modele'] . "</h3>
+                                            <h3 class='text-center mb-5 font-bold text-[18px] text-orange-500 car-model'>" . $row['modele'] . "</h3>
                                             <div class='flex justify-between items-center mb-4'>
-                                                <p class='text-center'>" . $row['marque'] . "</p>
-                                                <p class=''><b>" . $row['price'] . "</b> MAD/D</p>
+                                                <p class='text-center car-marque'>" . $row['marque'] . "</p>
+                                                <p class=''><b class='car-price'>" . $row['price'] . "</b> MAD/D</p>
                                             </div>
                                             <div class='relative after:w-full after:h-[1px] after:bg-gray-300 after:absolute after:block after:left-0 after:top-[14px]'>
                                                 <h4 class='relative z-10 bg-white pr-3 inline-block text-gray-600'>Car's details</h4>
                                                 <div class='mt-3'>
-                                                    <p><b>Immatriculation:</b> " . $row['NumImmatriculation'] . "</p>
+                                                    <p><b>Immatriculation:</b> <span class='car-immat'>" . $row['NumImmatriculation'] . "</span></p>
                                                 </div>
                                                 <div class='mt-3'>
-                                                    <p class=''><b>Annee:</b> " . $row['annee'] . "</p>
+                                                    <p class=''><b>Annee:</b> <span class='car-year'>" . $row['annee'] . "</span></p>
                                                 </div>
                                                 <button type='button' class='bg-orange-500 rounded block w-32 py-3 text-white mx-auto mt-5'>Book Now</button>
                                             </div>
@@ -166,7 +180,7 @@
                                                 <a href='assets/pages/delete.php?page=voitures&view=tables&id=" . $row["NumImmatriculation"] . "'>
                                                     <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-red-500' viewBox=\"0 0 448 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z'/></svg>
                                                 </a>
-                                                <button type='button' class='ml-2'>
+                                                <button type='button' class='ml-2 modify-btn' data-page='cars'>
                                                     <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-blue-500' viewBox=\"0 0 512 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z'/></svg>
                                                 </button>
                                             </div>
@@ -189,16 +203,16 @@
                                             while($row = $result->fetch_assoc()) {
                                                 echo 
                                                 '<div class="*:py-3 relative grid grid-cols-5 group hover:pl-10 transition-all">
-                                                    <span>' . $row["modele"] . '</span>
-                                                    <span>' . $row['marque'] . '</span>
-                                                    <span>' . $row['price'] . ' MAD/D</span>
-                                                    <span>' . $row['NumImmatriculation'] . '</span>
-                                                    <span>' . $row['annee'] . '</span>
+                                                    <span class="car-model">' . $row["modele"] . '</span>
+                                                    <span class="car-marque">' . $row['marque'] . '</span>
+                                                    <span class="car-price">' . $row['price'] . ' MAD/D</span>
+                                                    <span class="car-immat">' . $row['NumImmatriculation'] . '</span>
+                                                    <span class="car-year">' . $row['annee'] . '</span>
                                                     <div class="absolute flex justify-center gap-4 top-0 left-4 opacity-0 group-hover:opacity-100 transition-opacity delay-50 duration-300">
                                                         <a href="assets/pages/delete.php?page=voitures&view=tables&id=' . $row["NumImmatriculation"] . '" class="flex gap-3">
                                                             <svg xmlns=\"http://www.w3.org/2000/svg\" width="15" class="fill-red-500 pt-1" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"/></svg>
                                                         </a>
-                                                        <button type="button" class="flex gap-3">
+                                                        <button type="button" class="flex gap-3 modify-btn" data-page="cars">
                                                             <svg xmlns=\"http://www.w3.org/2000/svg\" width="15" class="fill-blue-500 pt-1" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"/></svg>
                                                         </button>
                                                     </div>
@@ -534,6 +548,7 @@
                                 </div>
                             </div>
                             <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3" name="form-type" value="voitures">ADD</button>
+                            <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3 hidden" disabled name="form-type" value="edit-voitures">EDIT</button>
                         </form>
                     </div>
                 </div>
@@ -619,7 +634,6 @@
     }
     
     ?>
-
 
     <script src="assets/js/script.js"></script>
 </body>

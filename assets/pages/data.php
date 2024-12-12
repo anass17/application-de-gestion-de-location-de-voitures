@@ -222,6 +222,57 @@
             echo 'error';
             set_error("Could not process your request", $form_type);
         }
+    } else if ($form_type == "edit-voitures") {
+
+        // Get input values
+
+        $modele = isset($_POST["modele"]) ? $_POST["modele"] : "";
+        $marque = isset($_POST["marque"]) ? $_POST["marque"] : "";
+        $matriculation = isset($_POST["matriculation"]) ? $_POST["matriculation"] : "";
+        $annee = isset($_POST["annee"]) ? $_POST["annee"] : "";
+        $price = isset($_POST["price"]) ? $_POST["price"] : "";
+
+        // Validate inputs
+
+        if (preg_match('/^[a-z A-Z0-9]{3,50}$/', $modele) == 0) {
+            set_error("The modele is invalid", "voitures");
+            exit();
+        }
+        if (preg_match('/^[a-z A-Z0-9]{3,50}$/', $marque) == 0) {
+            set_error("The marque is invalid", "voitures");
+            exit();
+        }
+        if (preg_match('/^[0-9A-Za-z]{3,10}$/', $matriculation) == 0) {
+            set_error("The matriculation number is invalid", "voitures");
+            exit();
+        }
+        if (preg_match('/^[12][0-9]{3}$/', $annee) == 0) {
+            set_error("The annee is invalid", "voitures");
+            exit();
+        }
+        if (preg_match('/^[1-9][0-9]{1,4}$/', $price) == 0) {
+            set_error("The price is invalid", "voitures");
+            exit();
+        }
+
+        // update an existing car
+
+        $stmt = $conn -> prepare("UPDATE voitures SET modele = ?, marque = ?, annee = ?, price = ? WHERE NumImmatriculation = ?");
+
+        if ($stmt === false) {
+            set_error("Could not process your request", "voitures");
+            exit();
+        }
+
+        $stmt -> bind_param("ssiis", $modele, $marque, $annee, $price, $matriculation);
+
+        if ($stmt -> execute()) {
+            $_SESSION['msg'] = "The car '$modele - $marque' was successfully edited";
+            $_SESSION['status'] = "success";
+            header('Location: ../../index.php?page=' . "voitures");
+        } else {
+            set_error("Could not process your request", "voitures");
+        }
     } else {
         set_error("There was an error in your request", 'clients');
     }
