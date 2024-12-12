@@ -52,7 +52,7 @@
 
         <!-- Menu -->
 
-        <div class="w-[300px] menu overflow-hidden bg-gray-800 h-screen text-white transition-all">
+        <div class="w-[350px] menu overflow-hidden bg-gray-800 h-screen text-white transition-all">
 
             <!-- Menu Header -->
 
@@ -265,24 +265,24 @@
                                         while($row = $result->fetch_assoc()) {
                                             echo 
                                             "<div class='group relative rounded-lg shadow-[0px_0px_15px_rgba(0,0,0,.25)] bg-white py-6 px-7'>
-                                                <h3 class='text-center mb-5 font-bold text-[18px] text-orange-500'>Contract: " . $row['NumContrat'] . "</h3>
+                                                <h3 class='text-center mb-5 font-bold text-[18px] text-orange-500'>Contract: <span class='contract-num'>" . $row['NumContrat'] . "</span></h3>
                                                 <div class='flex justify-center flex-wrap gap-5 items-center mb-6'>
                                                     <div class='flex border border-gray-300 rounded-lg px-3 py-1'>
                                                         <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-gray-700' viewBox=\"0 0 448 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L64 64C28.7 64 0 92.7 0 128l0 16 0 48L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-256 0-48 0-16c0-35.3-28.7-64-64-64l-40 0 0-40c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L152 64l0-40zM48 192l352 0 0 256c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16l0-256zm176 40c-13.3 0-24 10.7-24 24l0 48-48 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l48 0 0 48c0 13.3 10.7 24 24 24s24-10.7 24-24l0-48 48 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-48 0 0-48c0-13.3-10.7-24-24-24z'/></svg>
-                                                        <span class='ml-2 text-gray-800'>" . $row['StartDate'] . "</span>
+                                                        <span class='ml-2 text-gray-800 contract-start'>" . $row['StartDate'] . "</span>
                                                     </div>
                                                     <div class='flex border border-gray-300 rounded-lg px-3 py-1'>
                                                         <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-gray-700' viewBox=\"0 0 448 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M128 0c13.3 0 24 10.7 24 24l0 40 144 0 0-40c0-13.3 10.7-24 24-24s24 10.7 24 24l0 40 40 0c35.3 0 64 28.7 64 64l0 16 0 48 0 256c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 192l0-48 0-16C0 92.7 28.7 64 64 64l40 0 0-40c0-13.3 10.7-24 24-24zM400 192L48 192l0 256c0 8.8 7.2 16 16 16l320 0c8.8 0 16-7.2 16-16l0-256zM329 297L217 409c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47 95-95c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z'/></svg>
-                                                        <span class='ml-2 text-gray-800'>" . $row['EndDate'] . "</span>
+                                                        <span class='ml-2 text-gray-800 contract-end'>" . $row['EndDate'] . "</span>
                                                     </div>
                                                     <div class='flex border border-gray-300 rounded-lg px-3 py-1'>
                                                         <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-gray-700' viewBox=\"0 0 512 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z'/></svg>
-                                                        <span class='ml-2 text-gray-800'>" . $row['duration'] . " Days</span>
+                                                        <span class='ml-2 text-gray-800'><span class='contract-duration'>" . $row['duration'] . "</span> Days</span>
                                                     </div>
                                                 </div>
                                                 <div class='relative pt-3 after:w-10/12 after:h-[1px] after:bg-gray-200 after:absolute after:block after:right-1/2 after:translate-x-1/2 after:top-0'>
                                                     <div class='mt-2'>
-                                                        <p class='font-bold text-lg'>" . $row['Nom'] . "</p>
+                                                        <p class='font-bold text-lg contract-name'>" . $row['Nom'] . "</p>
                                                     </div>
                                                     <div class='mt-2'>
                                                         <p>" . $row['Adresse'] . "</p>
@@ -296,20 +296,20 @@
                                                 </div>
                                                 <div class='relative mt-9'>
                                                     <div class='mt-2'>
-                                                        <p class='font-bold text-lg'>" . $row['modele'] . "</p>
+                                                        <p class='font-bold text-lg contract-model'>" . $row['modele'] . "</p>
                                                     </div>
                                                     <div class='mt-2'>
-                                                        <p>" . $row['NumImmatriculation'] . "</p>
+                                                        <p class='contract-immat'>" . $row['NumImmatriculation'] . "</p>
                                                     </div>
                                                     <div class='mt-2'>
-                                                        <p>" . $row['marque'] . "</p>
+                                                        <p class='contract-marque'>" . $row['marque'] . "</p>
                                                     </div>
                                                 </div>
                                                 <div class='absolute top-3 right-4 opacity-0 transition-all group-hover:opacity-100 flex'>
                                                     <a href='assets/pages/delete.php?page=contrats&view=cards&id=" . $row["NumContrat"] . "' class='block'>
                                                         <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-red-500' viewBox=\"0 0 448 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z'/></svg>
                                                     </a>
-                                                    <button type='button' class='ml-2'>
+                                                    <button type='button' class='ml-2 modify-btn' data-page='contracts'>
                                                         <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-blue-500' viewBox=\"0 0 512 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z'/></svg>
                                                     </button>
                                                 </div>
@@ -347,7 +347,7 @@
                                                             <a href="assets/pages/delete.php?page=contrats&view=tables&id=' . $row["NumContrat"] . '" class="flex gap-3">
                                                                 <svg xmlns=\"http://www.w3.org/2000/svg\" width="15" class="fill-red-500 pt-1" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"/></svg>
                                                             </a>
-                                                            <button type="button" class="flex gap-3">
+                                                            <button type="button" class="flex gap-3 modify-btn" data-page="contracts">
                                                                 <svg xmlns=\"http://www.w3.org/2000/svg\" width="15" class="fill-blue-500 pt-1" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"/></svg>
                                                             </button>
                                                         </div>
@@ -394,11 +394,11 @@
                                     while($row = $result->fetch_assoc()) {
                                         echo 
                                         "<div class='group rounded-lg shadow-[0px_0px_15px_rgba(0,0,0,.25)] bg-white py-5 px-7 relative'>
-                                            <span class='hidden'>" . $row['NumClient'] . "</span>
-                                            <h3 class='text-center mb-5 font-bold text-[18px] text-orange-500'>" . $row['Nom'] . "</h3>
+                                            <span class='hidden client-num'>" . $row['NumClient'] . "</span>
+                                            <h3 class='text-center mb-5 font-bold text-[18px] text-orange-500 client-name'>" . $row['Nom'] . "</h3>
                                             <div class='flex justify-center gap-4 items-center mb-4'>
                                                 <svg xmlns=\"http://www.w3.org/2000/svg\" class='fill-gray-500' viewBox=\"0 0 384 512\" width='16'><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z'/></svg>
-                                                <p class='text-centerinline-block'>" . $row['Adresse'] . "</p>
+                                                <p class='text-centerinline-block client-address'>" . $row['Adresse'] . "</p>
                                             </div>
                                             <div class='flex justify-between mb-3 mt-2 items-center'>
                                                 <a href='#' class='text-orange-400 font-bold text-sm'>View Contracts</a>
@@ -408,18 +408,18 @@
                                                 <h4 class='relative z-10 bg-white pr-3 inline-block text-gray-600'>Contact</h4>
                                                 <div class='flex gap-4 items-center mt-3'>
                                                     <svg xmlns=\"http://www.w3.org/2000/svg\" width='16' class='fill-gray-500' viewBox=\"0 0 512 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z'/></svg>
-                                                    <p>" . $row['Tel'] . "</p>
+                                                    <p class='client-tel'>" . $row['Tel'] . "</p>
                                                 </div>
                                                 <div class='flex gap-4 items-center mt-3'>
                                                     <svg xmlns=\"http://www.w3.org/2000/svg\" width='16' class='fill-gray-500' viewBox=\"0 0 512 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z'/></svg>
-                                                    <p class='text-blue-500 font-bold'>" . $row['Email'] . "</p>
+                                                    <p class='text-blue-500 font-bold client-email'>" . $row['Email'] . "</p>
                                                 </div>
                                             </div>
                                             <div class='absolute top-3 right-4 opacity-0 transition-all group-hover:opacity-100 flex gap-1'>
                                                 <a href='assets/pages/delete.php?page=clients&view=cards&id=" . $row["NumClient"] . "'>
                                                     <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-red-500' viewBox=\"0 0 448 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z'/></svg>
                                                 </a>
-                                                <button type='button' class='ml-2'>
+                                                <button type='button' class='ml-2 modify-btn' data-page='clients'>
                                                     <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-blue-500' viewBox=\"0 0 512 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z'/></svg>
                                                 </button>
                                             </div>
@@ -441,15 +441,16 @@
                                             while($row = $result->fetch_assoc()) {
                                                 echo 
                                                 '<div class="*:py-3 relative grid grid-cols-4 group hover:pl-10 transition-all">
-                                                    <span>' . $row["Nom"] . '</span>
-                                                    <span>' . $row['Adresse'] . '</span>
-                                                    <span>' . $row['Tel'] . '</span>
-                                                    <span>' . $row['Email'] . '</span>
+                                                    <span class="client-name">' . $row["Nom"] . '</span>
+                                                    <span class="client-address">' . $row['Adresse'] . '</span>
+                                                    <span class="client-tel">' . $row['Tel'] . '</span>
+                                                    <span class="client-email">' . $row['Email'] . '</span>
+                                                    <span class="client-num hidden">' . $row["NumClient"] .'</span>
                                                     <div class="absolute flex justify-center gap-4 top-0 left-4 opacity-0 group-hover:opacity-100 transition-opacity delay-50 duration-300">
                                                         <a href="assets/pages/delete.php?page=clients&view=tables&id=' . $row["NumClient"] . '" class="flex gap-3">
                                                             <svg xmlns=\"http://www.w3.org/2000/svg\" width="15" class="fill-red-500 pt-1" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"/></svg>
                                                         </a>
-                                                        <button type="button" class="flex gap-3">
+                                                        <button type="button" class="flex gap-3 modify-btn" data-page="clients">
                                                             <svg xmlns=\"http://www.w3.org/2000/svg\" width="15" class="fill-blue-500 pt-1" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"/></svg>
                                                         </button>
                                                     </div>
@@ -482,6 +483,7 @@
                     </div>
                     <div class="modal-body px-7 py-5">
                         <form action="assets/pages/data.php" method="POST">
+                            <input type="hidden" name="client-num"></input>
                             <div class="flex gap-5 mb-4">
                                 <div class="">
                                     <label for="full-name" class="block mb-1">Full Name</label>
@@ -507,6 +509,7 @@
                                 </div>
                             </div>
                             <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3" name="form-type" value="clients">ADD</button>
+                            <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3" disabled name="form-type" value="edit-clients"">EDIT</button>
                         </form>
                     </div>
                 </div>
@@ -569,6 +572,7 @@
                     </div>
                     <div class="modal-body px-7 py-5">
                         <form action="assets/pages/data.php" method="POST">
+                            <input type="hidden" name="contract-num">
                             <div class="flex gap-5 mb-4">
                                 <div class="w-full">
                                     <label for="start-date" class="block mb-1">Start Date</label>
@@ -612,6 +616,7 @@
                                 </div>
                             </div>
                             <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3" name="form-type" value="contrats">ADD</button>
+                            <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3" disabled name="form-type" value="edit-contrats">EDIT</button>
                         </form>
                     </div>
                 </div>

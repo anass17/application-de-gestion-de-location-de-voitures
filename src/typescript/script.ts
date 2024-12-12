@@ -28,7 +28,7 @@ addNewRow.addEventListener('click', function () {
         item.value = "";
     });
 
-    inputs[2].removeAttribute('readonly');
+    inputs[2].removeAttribute('readonly');      // In cars form: Immatriculation form is set to readonly on edit
 });
 
 if (alertMsg != null) {
@@ -45,7 +45,7 @@ document.querySelectorAll('.modify-btn').forEach(item => {
     (item as HTMLElement).addEventListener('click', function () {
         modal.classList.remove('hidden');
         let lastWord = modalTitle?.textContent?.split(' ') as string[];
-        modalTitle.textContent = "Edit an existing " + lastWord[lastWord.length - 1];
+        modalTitle.textContent = "Edit an Existing " + lastWord[lastWord.length - 1];
 
         let modalBtns = modal.querySelectorAll('button[type="submit"]');
 
@@ -56,6 +56,7 @@ document.querySelectorAll('.modify-btn').forEach(item => {
 
         let card =  this.parentElement?.parentElement;
         let inputs = modal.querySelectorAll('input');
+        let selects = modal.querySelectorAll('select');
 
         if (this.dataset.page == "cars") {
             inputs[0].value = card?.querySelector('.car-model')?.textContent as string;
@@ -64,6 +65,19 @@ document.querySelectorAll('.modify-btn').forEach(item => {
             inputs[2].setAttribute('readonly', 'readonly');
             inputs[3].value = card?.querySelector('.car-year')?.textContent as string;
             inputs[4].value = card?.querySelector('.car-price')?.textContent as string;
+        } else if (this.dataset.page == "clients") {
+            inputs[0].value = card?.querySelector('.client-num')?.textContent as string;
+            inputs[1].value = card?.querySelector('.client-name')?.textContent as string;
+            inputs[2].value = card?.querySelector('.client-address')?.textContent as string;
+            inputs[3].value = card?.querySelector('.client-tel')?.textContent as string;
+            inputs[4].value = card?.querySelector('.client-email')?.textContent as string;
+        } else if (this.dataset.page == "contracts") {
+            inputs[0].value = card?.querySelector('.contract-num')?.textContent as string;
+            inputs[1].value = card?.querySelector('.contract-start')?.textContent as string;
+            inputs[2].value = card?.querySelector('.contract-end')?.textContent as string;
+            inputs[3].value = card?.querySelector('.contract-duration')?.textContent as string;
+            selects[0].value = card?.querySelector('.contract-name')?.textContent as string;
+            selects[1].value = card?.querySelector('.contract-immat')?.textContent as string;
         }
     });
 })

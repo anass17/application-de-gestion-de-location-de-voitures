@@ -33,7 +33,7 @@
             set_error("The name is invalid", $form_type);
             exit();
         }
-        if (preg_match('/^[a-z A-Z0-9-,]{3,100}$/', $address) == 0) {
+        if (preg_match('/^[a-z. A-Z0-9-,]{3,100}$/', $address) == 0) {
             set_error("The address is invalid", $form_type);
             exit();
         }
@@ -272,6 +272,169 @@
             header('Location: ../../index.php?page=' . "voitures");
         } else {
             set_error("Could not process your request", "voitures");
+        }
+    } else if ($form_type == "edit-clients") {
+
+        // Get input values
+
+        $client_num = isset($_POST["client-num"]) ? $_POST["client-num"] : "";
+        $full_name = isset($_POST["full-name"]) ? $_POST["full-name"] : "";
+        $address = isset($_POST["address"]) ? $_POST["address"] : "";
+        $tel = isset($_POST["tel"]) ? $_POST["tel"] : "";
+        $email = isset($_POST["email"]) ? $_POST["email"] : "";
+
+        // Validate inputs
+
+        if (preg_match('/^[1-9][0-9]*$/', $client_num) == 0) {
+            set_error("The id is invalid", "clients");
+            exit();
+        }
+        if (preg_match('/^[a-z A-Z]{3,50}$/', $full_name) == 0) {
+            set_error("The name is invalid", "clients");
+            exit();
+        }
+        if (preg_match('/^[a-z. A-Z0-9-,]{3,100}$/', $address) == 0) {
+            set_error("The address is invalid", "clients");
+            exit();
+        }
+        if (preg_match('/^[0][567][0-9]{8}$/', $tel) == 0) {
+            set_error("The annee is invalid", "clients");
+            exit();
+        }
+        if (preg_match('/^[a-zA-Z0-9-_.]{3,70}@[a-zA-Z0-9.]{1,25}\.[a-zA-Z]{1,5}$/', $email) == 0) {
+            set_error("The price is invalid", "clients");
+            exit();
+        }
+
+        // update an existing car
+
+        $stmt = $conn -> prepare("UPDATE clients SET Nom = ?, Adresse = ?, Tel = ?, Email = ? WHERE NumClient = ?");
+
+        if ($stmt === false) {
+            set_error("Could not process your request", "clients");
+            exit();
+        }
+
+        $stmt -> bind_param("ssssi", $full_name, $address, $tel, $email, $client_num);
+
+        if ($stmt -> execute()) {
+            $_SESSION['msg'] = "The client '$full_name' was successfully edited";
+            $_SESSION['status'] = "success";
+            header('Location: ../../index.php?page=' . "clients");
+        } else {
+            set_error("Could not process your request", "clients");
+        }
+    } else if ($form_type == "edit-contrats") {
+
+        // Get values
+
+        $contractID = isset($_POST["contract-num"]) ? $_POST["contract-num"] : "";
+        $start_date = isset($_POST["start-date"]) ? $_POST["start-date"] : "";
+        $end_date = isset($_POST["end-date"]) ? $_POST["end-date"] : "";
+        $duration = isset($_POST["duration"]) ? $_POST["duration"] : "";
+        $client = isset($_POST["client"]) ? $_POST["client"] : "";
+        $matriculation = isset($_POST["matriculation"]) ? $_POST["matriculation"] : "";
+
+        // Inputs validation
+
+        if (preg_match('/^[1-9][0-9]*$/', $contractID) == 0) {
+            set_error("The id is invalid", "contrats");
+            exit();
+        }
+        if (preg_match('/^[1-2][0-9]{3}-([0][1-9]|[1][0-2])-([0][1-9]|[12][0-9]|[3][01])$/', $start_date) == 0) {
+            set_error("The start date is invalid", "contrats");
+            exit();
+        }
+        if (preg_match('/^[1-2][0-9]{3}-([0][1-9]|[1][0-2])-([0][1-9]|[12][0-9]|[3][01])$/', $end_date) == 0) {
+            set_error("The end date is invalid", "contrats");
+            exit();
+        }
+        if (preg_match('/^[1-9][0-9]*$/', $duration) == 0) {
+            set_error("The duration is invalid", "contrats");
+            exit();
+        }
+        if (preg_match('/^[a-z A-Z]{3, 50}$/', $client) == 0) {
+            set_error("The client name is invalid", "contrats");
+            exit();
+        }
+        if (preg_match('/^[A-Za-z0-9]{3,10}$/', $matriculation) == 0) {
+            set_error("The matriculation is invalid", "contrats");
+            exit();
+        }
+
+        // Check if the entered user exists
+
+        $stmt = $conn -> prepare("SELECT NumClient FROM clients WHERE Nom = ?");
+        
+        if ($stmt === false) {
+            set_error("Could not process your request", "contrats");
+            exit();
+        }
+
+        $stmt -> bind_param("s", $client);
+        $idNum = 0;
+
+        if ($stmt -> execute()) {
+            $stmt -> bind_result($id);
+
+            while ($stmt->fetch()) {
+                $idNum = $id;
+            }
+
+            if ($idNum == 0) {
+                echo 'This user does not exist';
+            }
+        } else {
+            set_error("Could not process your request", "contrats");
+            exit();
+        }
+
+        // Check if the entered Immatriculation Number exists
+
+        $stmt = $conn -> prepare("SELECT NumImmatriculation FROM voitures WHERE NumImmatriculation = ?");
+        
+        if ($stmt === false) {
+            set_error("Could not process your request", "contrats");
+            echo 'error';
+            exit();
+        }
+        
+        $stmt -> bind_param("s", $matriculation);
+        $isExist = 0;
+
+        if ($stmt -> execute()) {
+            $stmt -> bind_result($id);
+
+            while ($stmt->fetch()) {
+                $isExist = 1;
+            }
+
+            if ($isExist == 0) {
+                echo 'This Immatriculation Number does not exist';
+            }
+        } else {
+            set_error("Could not process your request", "contrats");
+            exit();
+        }
+
+        // Insert new contract
+
+        $stmt = $conn -> prepare("UPDATE contracts SET NumClient = ?, StartDate = ?, EndDate = ?, duration = ?, NumImmatriculation = ? WHERE NumContrat = ?");
+
+        if ($stmt === false) {
+            set_error("Could not process your request", "contrats");
+            exit();
+        }
+
+        $stmt -> bind_param("issisi", $idNum, $start_date, $end_date, $duration, $matriculation, $contractID);
+
+        if ($stmt -> execute()) {
+            $_SESSION['msg'] = "The contract '$client | $matriculation' was successfully edited";
+            $_SESSION['status'] = "success";
+            header('Location: ../../index.php?page=' . "contrats");
+        } else {
+            echo 'error';
+            set_error("Could not process your request", "contrats");
         }
     } else {
         set_error("There was an error in your request", 'clients');
