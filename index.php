@@ -179,7 +179,7 @@
                             <div class="w-[22px] flex justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" class="fill-orange-500" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/></svg>
                             </div>
-                            <span class="inline-block ml-5">Sign Out</span>
+                            <span class="inline-block ml-5 whitespace-nowrap">Sign Out</span>
                         </a>
                     </li>
                 </ul>
@@ -188,7 +188,7 @@
 
         <!-- Page Content -->
         
-        <div class="xl:container ml-auto md:mx-auto w-[calc(100vw-75px)] md:w-full px-6 py-10  h-screen overflow-auto">
+        <div class="ml-auto md:mx-auto w-[calc(100vw-75px)] md:w-full px-6 py-10  h-screen overflow-auto">
                 <?php 
                     if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
@@ -214,14 +214,14 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-3 fill-gray-600" width="20" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
                                                 <input type="text" class="px-3 py-2 pl-12 outline-none rounded-lg" name="search" placeholder="Type in Something ...">
                                             </div>
-                                            <button type="submit" class="w-20 bg-orange-500 text-white rounded-lg">Search</button>
+                                            <button type="submit" class="w-20 bg-orange-500 text-white rounded-lg" data-target="' . $view . '">Search</button>
                                         </form>
                                     </div>
                                 </div>';
 
                             if ($result->num_rows > 0) {
                                 if ($view == "cards") {
-                                    echo '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">';
+                                    echo '<div class="cards-result grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" data-target="cars">';
                                     while($row = $result->fetch_assoc()) {
                                         echo 
                                         "<div class='group relative rounded-lg shadow-[0px_0px_15px_rgba(0,0,0,.25)] bg-white py-6 px-7'>
@@ -263,7 +263,7 @@
                                                 <b>Annee</b>
                                             </div>
                                         </div>
-                                        <div class="even:*:bg-gray-100">';
+                                        <div class="even:*:bg-gray-100 cards-result" data-target="cars">';
                                             while($row = $result->fetch_assoc()) {
                                                 echo 
                                                 '<div class="*:py-3 relative grid grid-cols-5 group hover:pl-10 transition-all">
@@ -316,7 +316,7 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-3 fill-gray-600" width="20" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
                                             <input type="text" class="px-3 py-2 pl-12 outline-none rounded-lg" name="search" placeholder="Type in Something ...">
                                         </div>
-                                        <button type="submit" class="w-20 bg-orange-500 text-white rounded-lg">Search</button>
+                                        <button type="submit" class="w-20 bg-orange-500 text-white rounded-lg" data-target="' . $view . '">Search</button>
                                     </form>
                                 </div>
                             </div>';
@@ -325,7 +325,7 @@
 
                                 if ($result->num_rows > 0) {
                                     if ($view == "cards") {
-                                        echo '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">';
+                                        echo '<div class="cards-result grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" data-target="contracts">';
                                         while($row = $result->fetch_assoc()) {
                                             echo 
                                             "<div class='group relative rounded-lg shadow-[0px_0px_15px_rgba(0,0,0,.25)] bg-white py-6 px-7'>
@@ -395,7 +395,7 @@
                                                     <b>Model</b>
                                                 </div>
                                             </div>
-                                            <div class="even:*:bg-gray-100">';
+                                            <div class="even:*:bg-gray-100 cards-result" data-target="contracts">';
                                                 while($row = $result->fetch_assoc()) {
                                                     echo 
                                                     '<div class="*:py-3 relative grid grid-cols-8 group hover:pl-10 transition-all">
@@ -447,14 +447,14 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-3 fill-gray-600" width="20" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
                                             <input type="text" class="px-3 py-2 pl-12 outline-none rounded-lg" name="search" placeholder="Type in Something ...">
                                         </div>
-                                        <button type="submit" class="w-20 bg-orange-500 text-white rounded-lg">Search</button>
+                                        <button type="submit" class="w-20 bg-orange-500 text-white rounded-lg" data-target="' . $view . '">Search</button>
                                     </form>
                                 </div>
                             </div>';
 
                             if ($result->num_rows > 0) {
                                 if ($view == "cards") {
-                                    echo '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">';
+                                    echo '<div class="cards-result grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" data-target="clients">';
                                     while($row = $result->fetch_assoc()) {
                                         echo 
                                         "<div class='group rounded-lg shadow-[0px_0px_15px_rgba(0,0,0,.25)] bg-white py-5 px-7 relative'>
@@ -501,7 +501,7 @@
                                                 <b>Email</b>
                                             </div>
                                         </div>
-                                        <div class="even:*:bg-gray-100">';
+                                        <div class="even:*:bg-gray-100 cards-result" data-target="clients">';
                                             while($row = $result->fetch_assoc()) {
                                                 echo 
                                                 '<div class="*:py-3 relative grid grid-cols-4 group hover:pl-10 transition-all">

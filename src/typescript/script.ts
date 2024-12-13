@@ -5,6 +5,8 @@ let addNewRow = document.querySelector('.add-new-row') as HTMLElement;
 let menu = document.querySelector('.menu') as HTMLElement;
 let menuBtn = menu.querySelector('.menu-btn') as HTMLElement;
 let alertMsg = document.querySelector('.alert-msg');
+let searchInput = document.querySelector('input[name="search"]') as HTMLInputElement;
+let searchBtn = searchInput?.parentElement?.nextElementSibling;
 
 modalCloseBtn.addEventListener('click', function () {
     modal.classList.add('hidden');
@@ -34,6 +36,87 @@ addNewRow.addEventListener('click', function () {
     });
 
     inputs[2].removeAttribute('readonly');      // In cars form: Immatriculation form is set to readonly on edit
+});
+
+
+searchBtn?.addEventListener('click', function (e) {
+    e.preventDefault();
+});
+
+searchInput?.addEventListener('keyup', function () {
+    let searchTarget = searchInput.value.toLowerCase();
+    let view = searchBtn?.getAttribute('data-target');
+
+    let cards = document.querySelector('.cards-result')?.children as HTMLCollection;
+    
+    if (view == "cards") {
+
+        if ((cards[0].parentElement as HTMLElement).getAttribute('data-target') == "contracts") {
+            for (let item of cards) {
+                if (item.querySelector('.contract-name')?.textContent?.toLowerCase().search(searchTarget) as number >= 0 ||
+                    item.querySelector('.contract-model')?.textContent?.toLowerCase().search(searchTarget) as number >= 0 ||
+                    item.querySelector('.contract-marque')?.textContent?.toLowerCase().search(searchTarget) as number >= 0 ||
+                    item.querySelector('.contract-immat')?.textContent?.toLowerCase().search(searchTarget) as number >= 0
+                ) {
+                    item.classList.remove('hidden')
+                } else {
+                    item.classList.add('hidden')
+                }
+            }
+        } else if ((cards[0].parentElement as HTMLElement).getAttribute('data-target') == "clients") {
+            for (let item of cards) {
+                if (item.querySelector('.client-name')?.textContent?.toLowerCase().search(searchTarget) as number >= 0) {
+                    item.classList.remove('hidden')
+                } else {
+                    item.classList.add('hidden')
+                }
+            }
+        } else {
+            for (let item of cards) {
+                if (item.querySelector('.car-model')?.textContent?.toLowerCase().search(searchTarget) as number >= 0 ||
+                    item.querySelector('.car-marque')?.textContent?.toLowerCase().search(searchTarget) as number >= 0 ||
+                    item.querySelector('.car-immat')?.textContent?.toLowerCase().search(searchTarget) as number >= 0
+                ) {
+                    item.classList.remove('hidden')
+                } else {
+                    item.classList.add('hidden')
+                }
+            }
+        }
+    } else {
+        if ((cards[0].parentElement as HTMLElement).getAttribute('data-target') == "contracts") {
+            for (let item of cards) {
+                if (item.querySelector('.contract-name')?.textContent?.toLowerCase().search(searchTarget) as number >= 0 ||
+                    item.querySelector('.contract-model')?.textContent?.toLowerCase().search(searchTarget) as number >= 0 ||
+                    item.querySelector('.contract-marque')?.textContent?.toLowerCase().search(searchTarget) as number >= 0 ||
+                    item.querySelector('.contract-immat')?.textContent?.toLowerCase().search(searchTarget) as number >= 0
+                ) {
+                    item.classList.remove('hidden')
+                } else {
+                    item.classList.add('hidden')
+                }
+            }
+        } else if ((cards[0].parentElement as HTMLElement).getAttribute('data-target') == "clients") {
+            for (let item of cards) {
+                if (item.querySelector('.client-name')?.textContent?.toLowerCase().search(searchTarget) as number >= 0) {
+                    item.classList.remove('hidden')
+                } else {
+                    item.classList.add('hidden')
+                }
+            }
+        } else {
+            for (let item of cards) {
+                if (item.querySelector('.car-model')?.textContent?.toLowerCase().search(searchTarget) as number >= 0 ||
+                    item.querySelector('.car-marque')?.textContent?.toLowerCase().search(searchTarget) as number >= 0 ||
+                    item.querySelector('.car-immat')?.textContent?.toLowerCase().search(searchTarget) as number >= 0
+                ) {
+                    item.classList.remove('hidden')
+                } else {
+                    item.classList.add('hidden')
+                }
+            }
+        }
+    }
 });
 
 if (alertMsg != null) {
