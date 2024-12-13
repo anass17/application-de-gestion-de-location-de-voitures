@@ -195,7 +195,13 @@
                         // Page: Voitures
 
                         if ($page == "voitures") {
-                            $sql = "SELECT * FROM voitures";
+
+                            $query = "";
+                            if (isset($_GET["q"]) && preg_match('/^[a-zA-Z0-9]{3,10}$/', $_GET["q"]) > 0) {
+                                $query = " WHERE NumImmatriculation = '" . $_GET["q"] . "'";
+                            }
+
+                            $sql = "SELECT * FROM voitures" . $query;
                             $result = $conn->query($sql);
 
                             echo '<h2 class="text-center mb-10 font-bold text-2xl">List of cars</h2>';
@@ -295,7 +301,13 @@
                         // Page: contrats
 
                         } else if ($page == "contrats") {
-                            $sql = "SELECT * FROM contracts C JOIN voitures V on C.NumImmatriculation = V.NumImmatriculation JOIN clients CL on C.NumClient = CL.NumClient";
+
+                            $query = "";
+                            if (isset($_GET["q"]) && preg_match('/^[1-9][0-9]*$/', $_GET["q"]) > 0) {
+                                $query = " WHERE C.NumClient = " . $_GET["q"];
+                            }
+
+                            $sql = "SELECT *, IF(Current_timestamp < EndDate, 'Active', 'Completed') AS status FROM contracts C JOIN voitures V on C.NumImmatriculation = V.NumImmatriculation JOIN clients CL on C.NumClient = CL.NumClient" . $query;
                             $result = $conn->query($sql);
 
                             
@@ -330,7 +342,7 @@
                                             echo 
                                             "<div class='group relative rounded-lg shadow-[0px_0px_15px_rgba(0,0,0,.25)] bg-white py-6 px-7'>
                                                 <h3 class='text-center mb-5 font-bold text-[18px] text-orange-500'>Contract: <span class='contract-num'>" . $row['NumContrat'] . "</span></h3>
-                                                <div class='flex justify-center flex-wrap gap-5 items-center mb-6'>
+                                                <div class='grid grid-cols-2 gap-5 items-center mb-6'>
                                                     <div class='flex border border-gray-300 rounded-lg px-3 py-1'>
                                                         <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-gray-700' viewBox=\"0 0 448 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L64 64C28.7 64 0 92.7 0 128l0 16 0 48L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-256 0-48 0-16c0-35.3-28.7-64-64-64l-40 0 0-40c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L152 64l0-40zM48 192l352 0 0 256c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16l0-256zm176 40c-13.3 0-24 10.7-24 24l0 48-48 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l48 0 0 48c0 13.3 10.7 24 24 24s24-10.7 24-24l0-48 48 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-48 0 0-48c0-13.3-10.7-24-24-24z'/></svg>
                                                         <span class='ml-2 text-gray-800 contract-start'>" . $row['StartDate'] . "</span>
@@ -342,6 +354,10 @@
                                                     <div class='flex border border-gray-300 rounded-lg px-3 py-1'>
                                                         <svg xmlns=\"http://www.w3.org/2000/svg\" width='15' class='fill-gray-700' viewBox=\"0 0 512 512\"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z'/></svg>
                                                         <span class='ml-2 text-gray-800'><span class='contract-duration'>" . $row['duration'] . "</span> Days</span>
+                                                    </div>
+                                                    <div class='flex border border-gray-300 rounded-lg px-3 py-1'>
+                                                        <span class='w-2 h-2 relative top-2 rounded-full mr-1 " . ($row["status"] == "Active" ? "bg-green-500" : "bg-red-500") . "'></span>
+                                                        <span class='ml-2 text-gray-800'>" . $row["status"] . "</span>
                                                     </div>
                                                 </div>
                                                 <div class='relative pt-3 after:w-10/12 after:h-[1px] after:bg-gray-200 after:absolute after:block after:right-1/2 after:translate-x-1/2 after:top-0'>
@@ -392,7 +408,7 @@
                                                     <b>Annee</b>
                                                     <b>Name</b>
                                                     <b>Immatriculation</b>
-                                                    <b>Model</b>
+                                                    <b>Status</b>
                                                 </div>
                                             </div>
                                             <div class="even:*:bg-gray-100 cards-result" data-target="contracts">';
@@ -405,8 +421,8 @@
                                                         <span class="contract-duration">' . $row['duration'] . '</span>
                                                         <span>' . $row['annee'] . '</span>
                                                         <span class="contract-name">' . $row['Nom'] . '</span>
-                                                        <span class="contract-immat">' . $row['NumImmatriculation'] . '</span>
-                                                        <span class="contract-model">' . $row['modele'] . '</span>
+                                                        <span class="contract-immat text-blue-500 font-semibold"><a href="index.php?page=voitures&q=' . $row['NumImmatriculation'] . '">' . $row['NumImmatriculation'] . '</a></span>
+                                                        <span>' . $row['status'] . '</span>
                                                         <div class="absolute flex justify-center gap-4 top-0 left-4 opacity-0 group-hover:opacity-100 transition-opacity delay-50 duration-300">
                                                             <a href="assets/pages/delete.php?page=contrats&view=tables&id=' . $row["NumContrat"] . '" class="flex gap-3">
                                                                 <svg xmlns=\"http://www.w3.org/2000/svg\" width="15" class="fill-red-500 pt-1" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"/></svg>
@@ -465,8 +481,7 @@
                                                 <p class='text-centerinline-block client-address'>" . $row['Adresse'] . "</p>
                                             </div>
                                             <div class='flex justify-between mb-3 mt-2 items-center'>
-                                                <a href='#' class='text-orange-400 font-bold text-sm'>View Contracts</a>
-                                                <span><b>Contracts:</b> 5</span>
+                                                <a href='/index.php?page=contrats&q=" . $row['NumClient'] . "' class='text-orange-400 font-bold text-sm'>View Contracts</a>
                                             </div>
                                             <div class='relative after:w-full after:h-[1px] after:bg-gray-300 after:absolute after:block after:left-0 after:top-[14px]'>
                                                 <h4 class='relative z-10 bg-white pr-3 inline-block text-gray-600'>Contact</h4>
