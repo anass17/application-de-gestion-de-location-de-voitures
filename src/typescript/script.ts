@@ -23,8 +23,13 @@ addNewRow.addEventListener('click', function () {
     modalBtns[1].setAttribute('disabled', '');
 
     let inputs = modal.querySelectorAll('input');
+    let selects = modal.querySelectorAll('select');
 
     inputs.forEach(item => {
+        item.value = "";
+    });
+
+    selects.forEach(item => {
         item.value = "";
     });
 
@@ -37,8 +42,18 @@ if (alertMsg != null) {
     }, 4000);
 }
 
+if (localStorage.getItem('menu') == 'closed') {
+    menu.classList.add('menu-closed');
+}
+
 menuBtn.addEventListener('click', function () {
-    menu.classList.toggle('menu-closed')
+    if (menu.classList.contains('menu-closed')) {
+        menu.classList.remove('menu-closed');
+        localStorage.setItem('menu', 'open');
+    } else {
+        menu.classList.add('menu-closed');
+        localStorage.setItem('menu', 'closed');
+    }
 });
 
 document.querySelectorAll('.modify-btn').forEach(item => {
@@ -68,8 +83,8 @@ document.querySelectorAll('.modify-btn').forEach(item => {
         } else if (this.dataset.page == "clients") {
             inputs[0].value = card?.querySelector('.client-num')?.textContent as string;
             inputs[1].value = card?.querySelector('.client-name')?.textContent as string;
-            inputs[2].value = card?.querySelector('.client-address')?.textContent as string;
-            inputs[3].value = card?.querySelector('.client-tel')?.textContent as string;
+            inputs[2].value = card?.querySelector('.client-tel')?.textContent as string;
+            inputs[3].value = card?.querySelector('.client-address')?.textContent as string;
             inputs[4].value = card?.querySelector('.client-email')?.textContent as string;
         } else if (this.dataset.page == "contracts") {
             inputs[0].value = card?.querySelector('.contract-num')?.textContent as string;

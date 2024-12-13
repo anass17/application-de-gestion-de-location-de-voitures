@@ -3,6 +3,52 @@
 
     require "inc/db-connect.php";
 
+    if (isset($_COOKIE['auth'])) {
+        $auth_params = explode(',,', $_COOKIE['auth']);
+
+        if (preg_match('/^[a-zA-Z0-9-_.]{3,70}@[a-zA-Z0-9.]{1,25}\.[a-zA-Z]{1,5}$/', $auth_params[0]) == 0) {
+            header('Location: assets/pages/login.php');
+            exit;
+        }
+
+        if (preg_match('/^AB-[0-9a-zA-Z]{14}\.[0-9a-zA-Z]{8}$/', $auth_params[1]) == 0) {
+            header('Location: assets/pages/login.php');
+            exit;
+        }
+
+        $stmt = $conn -> prepare("SELECT * FROM users WHERE token_expiration > current_timestamp() AND email = ? AND token = ?");
+
+        if ($stmt === false) {
+            $_SESSION["msg"] = "An error occured while processing your request";
+            header('Location: assets/pages/login.php');
+            exit;
+        }
+
+        $stmt -> bind_param("ss", $auth_params[0], $auth_params[1]);
+
+        if ($stmt -> execute()) {
+            $count = 0;
+
+            while ($stmt->fetch()) {
+                $count++;
+            }
+
+            if ($count == 0) {
+                header('Location: assets/pages/login.php');
+                exit;
+            }
+        } else {
+            $_SESSION["msg"] = "An error occured while processing your request";
+            header('Location: assets/pages/login.php');
+            exit;
+        }
+    
+    } else {
+        header('Location: assets/pages/login.php');
+        exit;
+    }
+
+
     $page = 'clients';
 
     if (isset($_GET["page"])) {
@@ -52,11 +98,11 @@
 
         <!-- Menu -->
 
-        <div class="w-[350px] menu overflow-hidden bg-gray-800 h-screen text-white transition-all">
+        <div class="fixed z-20 w-[350px] menu overflow-hidden bg-gray-800 h-screen text-white transition-all md:static">
 
             <!-- Menu Header -->
 
-            <div class="px-7 py-5 flex justify-between items-center relative">
+            <div class="px-6 py-5 flex justify-between items-center relative">
                 <h2 class="text-lg font-bold">Menu</h2>
                 <button type="button" class="menu-btn w-[20px] h-[15px] flex flex-col justify-between absolute top-6.5 right-7">
                     <span class="rounded h-[3px] w-full bg-orange-500 block"></span>
@@ -120,11 +166,27 @@
                     </li>
                 </ul>
             </div>
+
+            <!-- Others -->
+
+            <div class="mx-6 my-3 relative after:w-full after:h-[1px] after:bg-gray-500 after:absolute after:block after:left-0 after:top-[14px]">
+                <h3 class="text-gray-400 bg-gray-800 relative z-10 inline-block pr-[10px]">Others</h3>
+                <ul class="pt-4">
+                    <li class="mb-5">
+                        <a href="/assets/pages/signout.php" class="flex">
+                            <div class="w-[22px] flex justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" class="fill-orange-500" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/></svg>
+                            </div>
+                            <span class="inline-block ml-5">Sign Out</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
 
         <!-- Page Content -->
         
-        <div class="container mx-auto px-6 py-10  h-screen overflow-auto">
+        <div class="xl:container ml-auto md:mx-auto w-[calc(100vw-75px)] md:w-full px-6 py-10  h-screen overflow-auto">
                 <?php 
                     if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
@@ -137,7 +199,7 @@
                             echo '<h2 class="text-center mb-10 font-bold text-2xl">List of cars</h2>';
 
                             echo 
-                                '<div class="flex gap-24 justify-center mb-10 items-center">
+                                '<div class="flex flex-wrap gap-x-24 gap-y-10 justify-center mb-10 items-center">
                                     <div>
                                         <button type="button" class="add-new-row flex items-center gap-3">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="fill-orange-500" viewBox="0 0 448 512" width="25"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM200 344l0-64-64 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l64 0 0-64c0-13.3 10.7-24 24-24s24 10.7 24 24l0 64 64 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-64 0 0 64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/></svg>
@@ -157,7 +219,7 @@
 
                             if ($result->num_rows > 0) {
                                 if ($view == "cards") {
-                                    echo '<div class="grid grid-cols-3 gap-5">';
+                                    echo '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">';
                                     while($row = $result->fetch_assoc()) {
                                         echo 
                                         "<div class='group relative rounded-lg shadow-[0px_0px_15px_rgba(0,0,0,.25)] bg-white py-6 px-7'>
@@ -194,7 +256,7 @@
                                             <div class="*:py-3 grid grid-cols-5">
                                                 <b>Modele</b>
                                                 <b>Marque</b>
-                                                <b>Price</b>
+                                                <b>Price (MAD/Day)</b>
                                                 <b>NumImmatriculation</b>
                                                 <b>Annee</b>
                                             </div>
@@ -205,7 +267,7 @@
                                                 '<div class="*:py-3 relative grid grid-cols-5 group hover:pl-10 transition-all">
                                                     <span class="car-model">' . $row["modele"] . '</span>
                                                     <span class="car-marque">' . $row['marque'] . '</span>
-                                                    <span class="car-price">' . $row['price'] . ' MAD/D</span>
+                                                    <span class="car-price">' . $row['price'] . '</span>
                                                     <span class="car-immat">' . $row['NumImmatriculation'] . '</span>
                                                     <span class="car-year">' . $row['annee'] . '</span>
                                                     <div class="absolute flex justify-center gap-4 top-0 left-4 opacity-0 group-hover:opacity-100 transition-opacity delay-50 duration-300">
@@ -239,7 +301,7 @@
                             
                             
                             echo 
-                            '<div class="flex gap-24 justify-center mb-10 items-center">
+                            '<div class="flex flex-wrap gap-x-24 gap-y-10 justify-center mb-10 items-center">
                                 <div>
                                     <button type="button" class="add-new-row flex items-center gap-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="fill-orange-500" viewBox="0 0 448 512" width="25"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM200 344l0-64-64 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l64 0 0-64c0-13.3 10.7-24 24-24s24 10.7 24 24l0 64 64 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-64 0 0 64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/></svg>
@@ -261,7 +323,7 @@
 
                                 if ($result->num_rows > 0) {
                                     if ($view == "cards") {
-                                        echo '<div class="grid grid-cols-3 gap-5">';
+                                        echo '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">';
                                         while($row = $result->fetch_assoc()) {
                                             echo 
                                             "<div class='group relative rounded-lg shadow-[0px_0px_15px_rgba(0,0,0,.25)] bg-white py-6 px-7'>
@@ -324,7 +386,7 @@
                                                     <b>ID</b>
                                                     <b>StartDate</b>
                                                     <b>EndDate</b>
-                                                    <b>Duration</b>
+                                                    <b>Duration (Days)</b>
                                                     <b>Annee</b>
                                                     <b>Name</b>
                                                     <b>Immatriculation</b>
@@ -335,14 +397,14 @@
                                                 while($row = $result->fetch_assoc()) {
                                                     echo 
                                                     '<div class="*:py-3 relative grid grid-cols-8 group hover:pl-10 transition-all">
-                                                        <span>' . $row["NumContrat"] . '</span>
-                                                        <span>' . $row['StartDate'] . '</span>
-                                                        <span>' . $row['EndDate'] . '</span>
-                                                        <span>' . $row['duration'] . ' Days</span>
+                                                        <span class="contract-num">' . $row["NumContrat"] . '</span>
+                                                        <span class="contract-start">' . $row['StartDate'] . '</span>
+                                                        <span class="contract-end">' . $row['EndDate'] . '</span>
+                                                        <span class="contract-duration">' . $row['duration'] . '</span>
                                                         <span>' . $row['annee'] . '</span>
-                                                        <span>' . $row['Nom'] . '</span>
-                                                        <span>' . $row['NumImmatriculation'] . '</span>
-                                                        <span>' . $row['modele'] . '</span>
+                                                        <span class="contract-name">' . $row['Nom'] . '</span>
+                                                        <span class="contract-immat">' . $row['NumImmatriculation'] . '</span>
+                                                        <span class="contract-model">' . $row['modele'] . '</span>
                                                         <div class="absolute flex justify-center gap-4 top-0 left-4 opacity-0 group-hover:opacity-100 transition-opacity delay-50 duration-300">
                                                             <a href="assets/pages/delete.php?page=contrats&view=tables&id=' . $row["NumContrat"] . '" class="flex gap-3">
                                                                 <svg xmlns=\"http://www.w3.org/2000/svg\" width="15" class="fill-red-500 pt-1" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"/></svg>
@@ -370,7 +432,7 @@
                             echo '<h2 class="text-center mb-10 font-bold text-2xl">List of clients</h2>';
 
                             echo 
-                            '<div class="flex gap-24 justify-center mb-10 items-center">
+                            '<div class="flex flex-wrap gap-x-24 gap-y-10 justify-center mb-10 items-center">
                                 <div>
                                     <button type="button" class="add-new-row flex items-center gap-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="fill-orange-500" viewBox="0 0 448 512" width="25"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM200 344l0-64-64 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l64 0 0-64c0-13.3 10.7-24 24-24s24 10.7 24 24l0 64 64 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-64 0 0 64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/></svg>
@@ -390,7 +452,7 @@
 
                             if ($result->num_rows > 0) {
                                 if ($view == "cards") {
-                                    echo '<div class="grid grid-cols-3 gap-5">';
+                                    echo '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">';
                                     while($row = $result->fetch_assoc()) {
                                         echo 
                                         "<div class='group rounded-lg shadow-[0px_0px_15px_rgba(0,0,0,.25)] bg-white py-5 px-7 relative'>
@@ -475,7 +537,7 @@
     
         if ($page == "clients") {
             echo
-            '<div class="modal hidden z-50 fixed top-0 left-0 bg-black bg-opacity-70 w-full h-full flex justify-center items-center">
+            '<div class="modal px-3 hidden z-50 fixed top-0 left-0 bg-black bg-opacity-70 w-full h-full flex justify-center items-center">
                 <div class="modal-content w-full max-w-lg bg-white rounded-xl">
                     <div class="modal-header flex justify-between items-center px-7 py-5 pb-4 border-b border-gray-300">
                         <h2 class="font-bold text-lg">Add a New Client</h2>
@@ -485,11 +547,13 @@
                         <form action="assets/pages/data.php" method="POST">
                             <input type="hidden" name="client-num"></input>
                             <div class="flex gap-5 mb-4">
-                                <div class="">
+                                <div class="w-full">
                                     <label for="full-name" class="block mb-1">Full Name</label>
-                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="full-name" name="full-name" placeholder="Anass Boutaib">
+                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md w-full" id="full-name" name="full-name" placeholder="Anass Boutaib">
                                 </div>
-                                <div>
+                                <div class="">
+                                    <label for="tel" class="block mb-1">Tel</label>
+                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="tel" name="tel" placeholder="0635241562">
                                 </div>
                             </div>
                             <div class="flex gap-5 mb-4">
@@ -499,13 +563,9 @@
                                 </div>
                             </div>
                             <div class="flex gap-5 mb-4">
-                                <div class="">
-                                    <label for="tel" class="block mb-1">Tel</label>
-                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="tel" name="tel" placeholder="0635241562">
-                                </div>
-                                <div class="">
+                                <div class="w-full">
                                     <label for="email" class="block mb-1">Email</label>
-                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="email" name="email" placeholder="anass@example.com">
+                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md w-full" id="email" name="email" placeholder="anass@example.com">
                                 </div>
                             </div>
                             <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3" name="form-type" value="clients">ADD</button>
@@ -516,7 +576,7 @@
             </div>';
         } else if ($page == "voitures") {
             echo
-            '<div class="modal hidden z-50 fixed top-0 left-0 bg-black bg-opacity-70 w-full h-full flex justify-center items-center">
+            '<div class="modal px-3 hidden z-50 fixed top-0 left-0 bg-black bg-opacity-70 w-full h-full flex justify-center items-center">
                 <div class="modal-content w-full max-w-lg bg-white rounded-xl">
                     <div class="modal-header flex justify-between items-center px-7 py-5 pb-4 border-b border-gray-300">
                         <h2 class="font-bold text-lg">Add a New Car</h2>
@@ -527,11 +587,11 @@
                             <div class="flex gap-5 mb-4">
                                 <div class="">
                                     <label for="modele" class="block mb-1">Modele</label>
-                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="modele" name="modele" placeholder="Clio">
+                                    <input type="text" class="w-full border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="modele" name="modele" placeholder="Clio">
                                 </div>
                                 <div class="">
                                     <label for="marque" class="block mb-1">Marque</label>
-                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="marque" name="marque" placeholder="Dacia">
+                                    <input type="text" class="w-full border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="marque" name="marque" placeholder="Dacia">
                                 </div>
                             </div>
                             <div class="flex gap-5 mb-4">
@@ -543,11 +603,11 @@
                             <div class="flex gap-5 mb-4">
                                 <div class="">
                                     <label for="annee" class="block mb-1">Annee</label>
-                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="annee" name="annee" placeholder="2021">
+                                    <input type="text" class="w-full border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="annee" name="annee" placeholder="2021">
                                 </div>
                                 <div class="">
                                     <label for="price" class="block mb-1">Price (MAD / Day)</label>
-                                    <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="price" name="price" placeholder="275">
+                                    <input type="text" class="w-full border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="price" name="price" placeholder="275">
                                 </div>
                             </div>
                             <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3" name="form-type" value="voitures">ADD</button>
@@ -564,7 +624,7 @@
             $voitures = $conn->query($sql);
 
             echo
-            '<div class="modal hidden z-50 fixed top-0 left-0 bg-black bg-opacity-70 w-full h-full flex justify-center items-center">
+            '<div class="modal px-3 hidden z-50 fixed top-0 left-0 bg-black bg-opacity-70 w-full h-full flex justify-center items-center">
                 <div class="modal-content w-full max-w-lg bg-white rounded-xl">
                     <div class="modal-header flex justify-between items-center px-7 py-5 pb-4 border-b border-gray-300">
                         <h2 class="font-bold text-lg">Add a New Contract</h2>

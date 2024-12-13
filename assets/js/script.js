@@ -20,7 +20,11 @@ addNewRow.addEventListener('click', function () {
     modalBtns[1].classList.add('hidden');
     modalBtns[1].setAttribute('disabled', '');
     let inputs = modal.querySelectorAll('input');
+    let selects = modal.querySelectorAll('select');
     inputs.forEach(item => {
+        item.value = "";
+    });
+    selects.forEach(item => {
         item.value = "";
     });
     inputs[2].removeAttribute('readonly');
@@ -30,8 +34,18 @@ if (alertMsg != null) {
         alertMsg.remove();
     }, 4000);
 }
+if (localStorage.getItem('menu') == 'closed') {
+    menu.classList.add('menu-closed');
+}
 menuBtn.addEventListener('click', function () {
-    menu.classList.toggle('menu-closed');
+    if (menu.classList.contains('menu-closed')) {
+        menu.classList.remove('menu-closed');
+        localStorage.setItem('menu', 'open');
+    }
+    else {
+        menu.classList.add('menu-closed');
+        localStorage.setItem('menu', 'closed');
+    }
 });
 document.querySelectorAll('.modify-btn').forEach(item => {
     item.addEventListener('click', function () {
@@ -58,8 +72,8 @@ document.querySelectorAll('.modify-btn').forEach(item => {
         else if (this.dataset.page == "clients") {
             inputs[0].value = (_h = card === null || card === void 0 ? void 0 : card.querySelector('.client-num')) === null || _h === void 0 ? void 0 : _h.textContent;
             inputs[1].value = (_j = card === null || card === void 0 ? void 0 : card.querySelector('.client-name')) === null || _j === void 0 ? void 0 : _j.textContent;
-            inputs[2].value = (_k = card === null || card === void 0 ? void 0 : card.querySelector('.client-address')) === null || _k === void 0 ? void 0 : _k.textContent;
-            inputs[3].value = (_l = card === null || card === void 0 ? void 0 : card.querySelector('.client-tel')) === null || _l === void 0 ? void 0 : _l.textContent;
+            inputs[2].value = (_k = card === null || card === void 0 ? void 0 : card.querySelector('.client-tel')) === null || _k === void 0 ? void 0 : _k.textContent;
+            inputs[3].value = (_l = card === null || card === void 0 ? void 0 : card.querySelector('.client-address')) === null || _l === void 0 ? void 0 : _l.textContent;
             inputs[4].value = (_m = card === null || card === void 0 ? void 0 : card.querySelector('.client-email')) === null || _m === void 0 ? void 0 : _m.textContent;
         }
         else if (this.dataset.page == "contracts") {
