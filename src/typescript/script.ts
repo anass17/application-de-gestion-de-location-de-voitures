@@ -56,6 +56,94 @@ menuBtn.addEventListener('click', function () {
     }
 });
 
+function inputHasErrors(input: HTMLInputElement | HTMLSelectElement, pattern: RegExp, msg: string) : boolean {
+    if (input.nextElementSibling) {
+        input.nextElementSibling.remove();
+    }
+
+    if (input.value.search(pattern) < 0) {
+        let errorMsg = document.createElement('p');
+        errorMsg.textContent = msg;
+        errorMsg.className = "text-red-500";
+        input.after(errorMsg);
+        return true;
+    }
+
+    return false;
+}
+
+modal.querySelector('.form-add-btn')?.addEventListener('click', function (this: HTMLButtonElement, e) {
+    
+    let inputs = modal.querySelectorAll('input');
+    let selects = modal.querySelectorAll('select');
+    let errors = false;
+    
+    if (this.value == 'contrats') {
+        if (inputHasErrors(inputs[1], /^20[0-9]{2}-[01][0-9]-[01][0-9]$/, 'Enter a valid start date')) {
+            errors = true;
+        }
+        if (inputHasErrors(inputs[2], /^20[0-9]{2}-[01][0-9]-[01][0-9]$/, 'Enter a valid end date')) {
+            errors = true;
+        }
+        if (inputHasErrors(inputs[3], /^[1-9][0-9]*$/, 'Enter a valid duration')) {
+            errors = true;
+        }
+        if (inputHasErrors(selects[0], /^[a-z A-Z]{3,50}$/, 'Enter a valid name')) {
+            errors = true;
+        }
+        if (inputHasErrors(selects[1], /^[a-zA-Z0-9]{3,10}$/, 'Enter a valid matriculation number')) {
+            errors = true;
+        }
+    } else if (this.value == 'clients') {
+        if (inputHasErrors(inputs[1], /^[a-z A-Z]{3,50}$/, 'Enter a valid name')) {
+            errors = true;
+        }
+        if (inputHasErrors(inputs[2], /^0[567][0-9]{8}$/, 'Enter a valid tel number')) {
+            errors = true;
+        }
+        if (inputHasErrors(inputs[3], /^[a-z A-Z.-_,]{3,100}$/, 'Enter a valid address')) {
+            errors = true;
+        }
+        if (inputHasErrors(inputs[4], /^[a-zA-Z0-9.-_]{3,63}@[a-zA-Z0-9]{3,25}\.[a-zA-Z]{2,10}$/, 'Enter a valid email')) {
+            errors = true;
+        }
+    } else if (this.value == 'voitures') {
+        if (inputHasErrors(inputs[0], /^[a-z A-Z0-9]{3,50}$/, 'Enter a valid model')) {
+            errors = true;
+        }
+        if (inputHasErrors(inputs[1], /^[a-z A-Z0-9]{3,50}$/, 'Enter a valid marque')) {
+            errors = true;
+        }
+        if (inputHasErrors(inputs[2], /^[a-zA-Z0-9]{3,50}$/, 'Enter a valid matriculation number')) {
+            errors = true;
+        }
+        if (inputHasErrors(inputs[3], /^(19|20)[0-9]{2}$/, 'Enter a valid year')) {
+            errors = true;
+        }
+        if (inputHasErrors(inputs[4], /^[1-9][0-9]*$/, 'Enter a valid price')) {
+            errors = true;
+        }
+    }
+
+    // if (inputs[2].value == "") {
+    //     inputs[2].style.borderColor = "red";
+    //     errors = true;
+    // } else {
+    //     inputs[2].style.borderColor = "";
+    // }
+
+    // if (inputs[2].value == "") {
+    //     inputs[2].style.borderColor = "red";
+    //     errors = true;
+    // } else {
+    //     inputs[2].style.borderColor = "";
+    // }
+    
+    if (errors == true) {
+        e.preventDefault();
+    }
+});
+
 document.querySelectorAll('.modify-btn').forEach(item => {
     (item as HTMLElement).addEventListener('click', function () {
         modal.classList.remove('hidden');

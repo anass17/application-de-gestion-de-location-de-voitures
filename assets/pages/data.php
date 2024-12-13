@@ -13,7 +13,7 @@
     function set_error($msg, $page) {
         $_SESSION['msg'] = $msg;
         $_SESSION['status'] = "error";
-        header('Location: ../../index.php?page=' . $page);
+        header('Location: ../../index.php?page=' . $page . "&view=" . $_SESSION["view"]);
     }
 
     // Client
@@ -60,7 +60,7 @@
         if ($stmt -> execute()) {
             $_SESSION['msg'] = "The client '$name' was successfully added";
             $_SESSION['status'] = "success";
-            header('Location: ../../index.php?page=' . $form_type);
+            header('Location: ../../index.php?page=' . $form_type . "&view=" . $_SESSION["view"]);
         } else {
             set_error("Could not add the new client", $form_type);
         }
@@ -111,7 +111,7 @@
         if ($stmt -> execute()) {
             $_SESSION['msg'] = "The car '$modele - $marque' was successfully added";
             $_SESSION['status'] = "success";
-            header('Location: ../../index.php?page=' . $form_type);
+            header('Location: ../../index.php?page=' . $form_type . "&view=" . $_SESSION["view"]);
         } else {
             set_error("Could not add the new car", $form_type);
         }
@@ -217,7 +217,7 @@
         if ($stmt -> execute()) {
             $_SESSION['msg'] = "The contract '$client | $matriculation' was successfully added";
             $_SESSION['status'] = "success";
-            header('Location: ../../index.php?page=' . $form_type);
+            header('Location: ../../index.php?page=' . $form_type . "&view=" . $_SESSION["view"]);
         } else {
             echo 'error';
             set_error("Could not process your request", $form_type);
@@ -269,7 +269,7 @@
         if ($stmt -> execute()) {
             $_SESSION['msg'] = "The car '$modele - $marque' was successfully edited";
             $_SESSION['status'] = "success";
-            header('Location: ../../index.php?page=' . "voitures");
+            header('Location: ../../index.php?page=' . "voitures&view=" . $_SESSION["view"]);
         } else {
             set_error("Could not process your request", "voitures");
         }
@@ -320,7 +320,7 @@
         if ($stmt -> execute()) {
             $_SESSION['msg'] = "The client '$full_name' was successfully edited";
             $_SESSION['status'] = "success";
-            header('Location: ../../index.php?page=' . "clients");
+            header('Location: ../../index.php?page=' . "clients" . "&view=" . $_SESSION["view"]);
         } else {
             set_error("Could not process your request", "clients");
         }
@@ -431,7 +431,7 @@
         if ($stmt -> execute()) {
             $_SESSION['msg'] = "The contract '$client | $matriculation' was successfully edited";
             $_SESSION['status'] = "success";
-            header('Location: ../../index.php?page=' . "contrats");
+            header('Location: ../../index.php?page=' . "contrats" . "&view=" . $_SESSION["view"]);
         } else {
             echo 'error';
             set_error("Could not process your request", "contrats");

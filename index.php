@@ -64,6 +64,8 @@
     if (isset($_GET["view"]) && $_GET["view"] == "tables") {
         $view = "tables";
     }
+
+    $_SESSION["view"] = $view;
 ?>
 
 <!DOCTYPE html>
@@ -568,8 +570,8 @@
                                     <input type="text" class="border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md w-full" id="email" name="email" placeholder="anass@example.com">
                                 </div>
                             </div>
-                            <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3" name="form-type" value="clients">ADD</button>
-                            <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3" disabled name="form-type" value="edit-clients"">EDIT</button>
+                            <button type="submit" class="form-add-btn w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3" name="form-type" value="clients">ADD</button>
+                            <button type="submit" class="form-modify-btn w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3" disabled name="form-type" value="edit-clients"">EDIT</button>
                         </form>
                     </div>
                 </div>
@@ -610,8 +612,8 @@
                                     <input type="text" class="w-full border border-[#FFB38A] bg-[#FF6F22] bg-opacity-5 px-4 py-2 rounded-md" id="price" name="price" placeholder="275">
                                 </div>
                             </div>
-                            <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3" name="form-type" value="voitures">ADD</button>
-                            <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3 hidden" disabled name="form-type" value="edit-voitures">EDIT</button>
+                            <button type="submit" class="form-add-btn w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3" name="form-type" value="voitures">ADD</button>
+                            <button type="submit" class="form-modify-btn w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3 hidden" disabled name="form-type" value="edit-voitures">EDIT</button>
                         </form>
                     </div>
                 </div>
@@ -675,8 +677,8 @@
                                 <div class="w-full">
                                 </div>
                             </div>
-                            <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3" name="form-type" value="contrats">ADD</button>
-                            <button type="submit" class="w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3" disabled name="form-type" value="edit-contrats">EDIT</button>
+                            <button type="submit" class="form-add-btn w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3" name="form-type" value="contrats">ADD</button>
+                            <button type="submit" class="form-modify-btn w-24 py-2 bg-orange-500 rounded-md text-white font-bold mt-3" disabled name="form-type" value="edit-contrats">EDIT</button>
                         </form>
                     </div>
                 </div>
