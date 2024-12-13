@@ -244,7 +244,7 @@
                                                 <div class='mt-3'>
                                                     <p class=''><b>Annee:</b> <span class='car-year'>" . $row['annee'] . "</span></p>
                                                 </div>
-                                                <button type='button' class='bg-orange-500 rounded block w-32 py-3 text-white mx-auto mt-5'>Book Now</button>
+                                                <button type='button' class='bg-orange-500 rounded block w-32 py-3 text-white mx-auto mt-5'>Reserve</button>
                                             </div>
                                             <div class='absolute top-3 right-4 opacity-0 transition-all group-hover:opacity-100 flex gap-1'>
                                                 <a href='assets/pages/delete.php?page=voitures&view=tables&id=" . $row["NumImmatriculation"] . "'>
